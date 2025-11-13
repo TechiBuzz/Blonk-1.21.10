@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.9,
+  "group": "blonk:metal_alloy",
+  "ingredient": "blonk:scrap",
+  "result": {
+    "id": "blonk:metal_alloy"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "minecraft:comparator",
+    "I": "minecraft:iron_ingot",
+    "P": "minecraft:piston",
+    "R": "minecraft:repeater"
+  },
+  "pattern": [
+    "   ",
+    " PR",
+    "ICI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "blonk:loading_mechanism"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "blonk",
+  "version": "${version}",
+  "name": "Blonk",
+  "description": "",
+  "authors": ["TechiBuzz"],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/blonk/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "com.techibuzz.blonk.datagen.BlonkDataGenerator"
+    ],
+    "client": [
+      "com.techibuzz.blonk.client.BlonkClient"
+    ],
+    "main": [
+      "com.techibuzz.blonk.Blonk"
+    ]
+  },
+  "mixins": [
+    "blonk.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

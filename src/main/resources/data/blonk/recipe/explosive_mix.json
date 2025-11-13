@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": "minecraft:bone_meal",
+    "G": "minecraft:gunpowder"
+  },
+  "pattern": [
+    "BG ",
+    "GB ",
+    "   "
+  ],
+  "result": {
+    "count": 4,
+    "id": "blonk:explosive_mix"
+  }
+}

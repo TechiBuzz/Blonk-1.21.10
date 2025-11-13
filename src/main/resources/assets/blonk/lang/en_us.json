@@ -1,0 +1,12 @@
+{
+  "item.blonk.casing": "Casing",
+  "item.blonk.explosive_mix": "Explosive Mix",
+  "item.blonk.gun_barrel": "Gun Barrel",
+  "item.blonk.loading_mechanism": "Loading Mechanism",
+  "item.blonk.metal_alloy": "Metal Alloy",
+  "item.blonk.scrap": "Scrap",
+  "item.blonk.shell": "Shell",
+  "item.blonk.track": "Track",
+
+  "itemGroup.blonk_item_group": "Blonk Mod Items"
+}

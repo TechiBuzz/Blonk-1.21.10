@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "blonk:casing",
+    "blonk:explosive_mix"
+  ],
+  "result": {
+    "count": 1,
+    "id": "blonk:shell"
+  }
+}
