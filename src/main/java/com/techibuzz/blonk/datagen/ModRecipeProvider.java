@@ -1,5 +1,6 @@
 package com.techibuzz.blonk.datagen;
 
+import com.techibuzz.blonk.block.ModBlocks;
 import com.techibuzz.blonk.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -23,8 +24,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         return new RecipeGenerator(registryLookup, exporter) {
             @Override
             public void generate() {
-                // AMMO RACK TODO: CHANGE ALLOY TO AMMO RACK
-                createShaped(RecipeCategory.COMBAT, ModItems.METAL_ALLOY)
+                createShaped(RecipeCategory.COMBAT, ModBlocks.AMMO_RACK)
                         .pattern("SSS")
                         .pattern("SCS")
                         .pattern("SSS")

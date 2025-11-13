@@ -16,6 +16,7 @@ public class ModBlockLootTableProvider extends FabricBlockLootTableProvider {
     @Override
     public void generate() {
         addDrop(ModBlocks.AMMO_RACK);
+        addDrop(ModBlocks.BROKEN_BLONK);
     }
 
 }

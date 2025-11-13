@@ -1,6 +1,7 @@
 package com.techibuzz.blonk.block;
 
 import com.techibuzz.blonk.Blonk;
+import com.techibuzz.blonk.block.custom.BrokenBlonkBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
@@ -21,8 +22,19 @@ public class ModBlocks {
             Block::new,
             AbstractBlock.Settings.create()
                     .mapColor(MapColor.YELLOW)
-                    .sounds(BlockSoundGroup.CHAIN)
+                    .sounds(BlockSoundGroup.IRON)
                     .breakInstantly(),
+            true
+    );
+
+    public static final Block BROKEN_BLONK = register(
+            "broken_blonk",
+            BrokenBlonkBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.GRAY)
+                    .sounds(BlockSoundGroup.IRON)
+                    .requiresTool()
+                    .strength(5.0F, 6.0F),
             true
     );
 
