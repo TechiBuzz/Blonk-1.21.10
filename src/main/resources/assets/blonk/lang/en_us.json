@@ -8,5 +8,7 @@
   "item.blonk.shell": "Shell",
   "item.blonk.track": "Track",
 
+  "block.blonk.ammo_rack": "Ammo Rack",
+
   "itemGroup.blonk_item_group": "Blonk Mod Items"
 }

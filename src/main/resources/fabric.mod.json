@@ -11,7 +11,7 @@
   "environment": "*",
   "entrypoints": {
     "fabric-datagen": [
-      "com.techibuzz.blonk.datagen.BlonkDataGenerator"
+      "com.techibuzz.blonk.BlonkDataGenerator"
     ],
     "client": [
       "com.techibuzz.blonk.client.BlonkClient"

@@ -1,6 +1,7 @@
 package com.techibuzz.blonk.item;
 
 import com.techibuzz.blonk.Blonk;
+import com.techibuzz.blonk.block.ModBlocks;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -19,7 +20,6 @@ public class ModItemGroups {
     public static final ItemGroup BLONK_ITEM_GROUP = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup.blonk_item_group"))
             .icon(() -> new ItemStack(ModItems.SCRAP))
-            .special()
             .entries((displayContext, entries) -> {
                 entries.add(ModItems.CASING);
                 entries.add(ModItems.EXPLOSIVE_MIX);
@@ -29,6 +29,8 @@ public class ModItemGroups {
                 entries.add(ModItems.SCRAP);
                 entries.add(ModItems.SHELL);
                 entries.add(ModItems.TRACK);
+
+                entries.add(ModBlocks.AMMO_RACK);
             })
             .build();
 

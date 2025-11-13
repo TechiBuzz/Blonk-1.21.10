@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "blonk:block/ammo_rack_bottom",
+    "side": "blonk:block/ammo_rack_side",
+    "top": "blonk:block/ammo_rack_top"
+  }
+}

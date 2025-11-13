@@ -23,6 +23,17 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         return new RecipeGenerator(registryLookup, exporter) {
             @Override
             public void generate() {
+                // AMMO RACK TODO: CHANGE ALLOY TO AMMO RACK
+                createShaped(RecipeCategory.COMBAT, ModItems.METAL_ALLOY)
+                        .pattern("SSS")
+                        .pattern("SCS")
+                        .pattern("SSS")
+                        .input('S', ModItems.SHELL)
+                        .input('C', Items.IRON_CHAIN)
+                        .criterion(hasItem(ModItems.SHELL), conditionsFromItem(ModItems.SHELL))
+                        .criterion(hasItem(Items.IRON_CHAIN), conditionsFromItem(Items.IRON_CHAIN))
+                        .offerTo(exporter);
+
                 // CASING
                 createShaped(RecipeCategory.COMBAT, ModItems.CASING)
                         .pattern("G  ")
