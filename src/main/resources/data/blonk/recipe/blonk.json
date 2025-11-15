@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "G": "blonk:gun_barrel",
+    "L": "blonk:loading_mechanism",
+    "M": "blonk:metal_alloy",
+    "N": "minecraft:netherite_scrap",
+    "T": "blonk:track"
+  },
+  "pattern": [
+    "MMM",
+    "GLN",
+    "TTT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "blonk:blonk"
+  }
+}

@@ -1,5 +1,6 @@
 package com.techibuzz.blonk;
 
+import com.techibuzz.blonk.block.ModBlockEntities;
 import com.techibuzz.blonk.block.ModBlocks;
 import com.techibuzz.blonk.item.ModItemGroups;
 import com.techibuzz.blonk.item.ModItems;
@@ -22,6 +23,7 @@ public class Blonk implements ModInitializer {
     public void onInitialize() {
         ModItems.registerModItems();
         ModBlocks.registerModBlocks();
+        ModBlockEntities.registerModBlockEntities();
         ModItemGroups.registerModItemGroups();
 
         // Scrap trade to max level armorer

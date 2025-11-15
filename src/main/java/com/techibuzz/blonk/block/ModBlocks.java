@@ -1,6 +1,7 @@
 package com.techibuzz.blonk.block;
 
 import com.techibuzz.blonk.Blonk;
+import com.techibuzz.blonk.block.custom.BlonkBlock;
 import com.techibuzz.blonk.block.custom.BrokenBlonkBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -24,6 +25,28 @@ public class ModBlocks {
                     .mapColor(MapColor.YELLOW)
                     .sounds(BlockSoundGroup.IRON)
                     .breakInstantly(),
+            true
+    );
+
+    public static final Block BLONK = register(
+            "blonk",
+            BlonkBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.DARK_GREEN)
+                    .sounds(BlockSoundGroup.NETHERITE)
+                    .requiresTool()
+                    .strength(50.0F, 1200.0F),
+            true
+    );
+
+    public static final Block CHONK = register(
+            "chonk",
+            BlonkBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.DARK_GREEN)
+                    .sounds(BlockSoundGroup.NETHERITE)
+                    .requiresTool()
+                    .strength(50.0F, 1200.0F),
             true
     );
 

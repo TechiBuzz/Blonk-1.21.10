@@ -9,6 +9,9 @@
   "item.blonk.track": "Track",
 
   "block.blonk.ammo_rack": "Ammo Rack",
+
+  "block.blonk.blonk": "Blonk",
+  "block.blonk.chonk": "Chonk",
   "block.blonk.broken_blonk": "Broken Blonk",
 
   "itemGroup.blonk_item_group": "Blonk Mod Items"

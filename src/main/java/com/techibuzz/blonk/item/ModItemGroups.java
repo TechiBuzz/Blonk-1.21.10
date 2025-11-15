@@ -31,6 +31,8 @@ public class ModItemGroups {
                 entries.add(ModItems.TRACK);
 
                 entries.add(ModBlocks.AMMO_RACK);
+                entries.add(ModBlocks.CHONK);
+                entries.add(ModBlocks.BLONK);
                 entries.add(ModBlocks.BROKEN_BLONK);
             })
             .build();

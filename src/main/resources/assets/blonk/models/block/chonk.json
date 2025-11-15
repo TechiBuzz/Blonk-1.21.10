@@ -1,27 +1,24 @@
 {
 	"format_version": "1.21.6",
 	"credit": "Made with Blockbench",
-	"parent": "minecraft:block/cube_all",
 	"textures": {
-		"0": "blonk:block/broken_blonk_back",
-		"1": "blonk:block/broken_blonk_bottom",
-		"2": "blonk:block/broken_blonk_front",
-		"3": "blonk:block/broken_blonk_left",
-		"4": "blonk:block/broken_blonk_right",
-		"5": "blonk:block/broken_blonk_top",
-		"particle": "blonk:block/broken_blonk_back"
+		"0": "blonk:block/chonk_back",
+		"1": "blonk:block/chonk_bottom",
+		"2": "blonk:block/chonk_front",
+		"3": "blonk:block/chonk_side",
+		"4": "blonk:block/chonk_top",
+		"particle": "blonk:block/chonk_top"
 	},
 	"elements": [
 		{
 			"from": [0, 0, 0],
 			"to": [16, 16, 16],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
 			"faces": {
 				"north": {"uv": [0, 0, 16, 16], "texture": "#2"},
-				"east": {"uv": [0, 0, 16, 16], "texture": "#4"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#3"},
 				"south": {"uv": [0, 0, 16, 16], "texture": "#0"},
 				"west": {"uv": [0, 0, 16, 16], "texture": "#3"},
-				"up": {"uv": [0, 0, 16, 16], "texture": "#5"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#4"},
 				"down": {"uv": [0, 0, 16, 16], "texture": "#1"}
 			}
 		}
@@ -53,11 +50,11 @@
 			"rotation": [30, -135, 0],
 			"scale": [0.625, 0.625, 0.625]
 		},
-		"head": {
-			"rotation": [0, -180, 0]
-		},
 		"fixed": {
-			"scale": [0.8, 0.8, 0.8]
+			"scale": [0.9, 0.9, 0.9]
+		},
+		"on_shelf": {
+			"rotation": [0, -180, 0]
 		}
 	}
 }

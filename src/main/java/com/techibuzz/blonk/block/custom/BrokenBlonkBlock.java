@@ -21,12 +21,12 @@ public class BrokenBlonkBlock extends HorizontalFacingBlock {
 
     @Override
     public @Nullable BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite());
+        return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing());
     }
 
     @Override
     public MapCodec<? extends HorizontalFacingBlock> getCodec() {
-        return null;
+        return createCodec(BrokenBlonkBlock::new);
     }
 
     @Override
