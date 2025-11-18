@@ -16,7 +16,23 @@ public class ModBlockEntities {
             "blonk",
             BlonkBlockEntity::new,
             ModBlocks.BLONK,
-            ModBlocks.CHONK
+
+            ModBlocks.BLACK_BLONK,
+            ModBlocks.BLUE_BLONK,
+            ModBlocks.BROWN_BLONK,
+            ModBlocks.CYAN_BLONK,
+            ModBlocks.GRAY_BLONK,
+            ModBlocks.GREEN_BLONK,
+            ModBlocks.LIGHT_BLUE_BLONK,
+            ModBlocks.LIGHT_GRAY_BLONK,
+            ModBlocks.LIME_BLONK,
+            ModBlocks.MAGENTA_BLONK,
+            ModBlocks.ORANGE_BLONK,
+            ModBlocks.PINK_BLONK,
+            ModBlocks.PURPLE_BLONK,
+            ModBlocks.RED_BLONK,
+            ModBlocks.WHITE_BLONK,
+            ModBlocks.YELLOW_BLONK
     );
 
     private static <T extends BlockEntity> BlockEntityType<T> register(String name, FabricBlockEntityTypeBuilder.Factory<? extends T> entityFactory, Block... blocks) {

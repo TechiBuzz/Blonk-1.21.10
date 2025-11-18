@@ -8,9 +8,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.component.ComponentType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -42,13 +40,6 @@ public class BlonkBlock extends BlockWithEntity {
     protected ActionResult onUseWithItem(ItemStack itemStack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!(world.getBlockEntity(pos) instanceof BlonkBlockEntity blonkBlockEntity)) {
             return super.onUseWithItem(itemStack, state, world, pos, player, hand, hit);
-        }
-        
-        // Dye tinting
-        if (itemStack.getItem() instanceof DyeItem dyeItem) {
-            blonkBlockEntity.shitHue(dyeItem.getColor().getEntityColor());
-            itemStack.decrementUnlessCreative(1, player);
-            return ActionResult.SUCCESS;
         }
 
         // Armor
@@ -82,10 +73,9 @@ public class BlonkBlock extends BlockWithEntity {
                 world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
                 return ActionResult.SUCCESS;
             } else {
-                return ActionResult.PASS;
+                return  ActionResult.PASS;
             }
         }
-
     }
 
     @Override

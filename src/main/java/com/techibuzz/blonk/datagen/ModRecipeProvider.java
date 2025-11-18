@@ -39,6 +39,25 @@ public class ModRecipeProvider extends FabricRecipeProvider {
             Items.WHITE_DYE
     );
 
+    private static final List<Item> blonkList = List.of(
+            ModBlocks.BLACK_BLONK.asItem(),
+            ModBlocks.BLUE_BLONK.asItem(),
+            ModBlocks.BROWN_BLONK.asItem(),
+            ModBlocks.CYAN_BLONK.asItem(),
+            ModBlocks.GRAY_BLONK.asItem(),
+            ModBlocks.GREEN_BLONK.asItem(),
+            ModBlocks.LIGHT_BLUE_BLONK.asItem(),
+            ModBlocks.LIGHT_GRAY_BLONK.asItem(),
+            ModBlocks.LIME_BLONK.asItem(),
+            ModBlocks.MAGENTA_BLONK.asItem(),
+            ModBlocks.ORANGE_BLONK.asItem(),
+            ModBlocks.PINK_BLONK.asItem(),
+            ModBlocks.PURPLE_BLONK.asItem(),
+            ModBlocks.RED_BLONK.asItem(),
+            ModBlocks.WHITE_BLONK.asItem(),
+            ModBlocks.YELLOW_BLONK.asItem()
+    );
+
     @Override
     protected RecipeGenerator getRecipeGenerator(RegistryWrapper.WrapperLookup registryLookup, RecipeExporter exporter) {
         return new RecipeGenerator(registryLookup, exporter) {
@@ -137,18 +156,15 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(ModItems.TRACK), conditionsFromItem(ModItems.TRACK))
                         .offerTo(exporter);
 
-                // BLONK FROM BROKEN BLONK
-                createShapeless(RecipeCategory.COMBAT, ModBlocks.BLONK)
-                        .input(ModBlocks.BROKEN_BLONK)
-                        .input(ModItems.SCRAP)
-                        .criterion(hasItem(ModBlocks.BROKEN_BLONK.asItem()), conditionsFromItem(ModBlocks.BROKEN_BLONK.asItem()))
-                        .criterion(hasItem(ModItems.SCRAP), conditionsFromItem(ModItems.SCRAP))
-                        .offerTo(exporter);
+                // BROKEN BLONK REPAIR
+                offerShapelessRecipe(ModBlocks.BLONK, ModBlocks.BROKEN_BLONK,"blonk_from_broken_blonk", 1);
 
-                offerDyeableRecipes(
+                // DYE-ABLE BLONKS
+                offerDyeablesRecipes(
                         dyeList,
-                        List.of(ModBlocks.BLONK.asItem()),
-                        "wool",
+                        blonkList,
+                        ModBlocks.BLONK.asItem(),
+                        "blonk",
                         RecipeCategory.COMBAT
                 );
 

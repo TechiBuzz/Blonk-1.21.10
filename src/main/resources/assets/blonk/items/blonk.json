@@ -1,12 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "blonk:block/blonk",
-    "tints": [
-      {
-        "type": "minecraft:dye",
-        "default": -6265536
-      }
-    ]
+    "model": "blonk:block/blonk"
   }
 }

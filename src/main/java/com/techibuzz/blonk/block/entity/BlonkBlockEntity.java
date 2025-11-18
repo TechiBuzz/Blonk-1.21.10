@@ -1,6 +1,5 @@
 package com.techibuzz.blonk.block.entity;
 
-import com.mojang.serialization.Codec;
 import com.techibuzz.blonk.block.ModBlockEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -14,21 +13,14 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ColorHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class BlonkBlockEntity extends BlockEntity implements LootableInventory, SingleStackInventory.SingleStackBlockEntityInventory {
-    public int color = 0xFFFFFF;
     private ItemStack stack = ItemStack.EMPTY;
 
     public BlonkBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.BLONK_BLOCK_ENTITY, pos, state);
-    }
-
-    public void shitHue(int newColor) {
-        color = ColorHelper.average(newColor, color);
-        this.updateListeners(world);
     }
 
     private void updateListeners(World world) {
@@ -40,11 +32,6 @@ public class BlonkBlockEntity extends BlockEntity implements LootableInventory, 
     @Override
     protected void readData(ReadView view) {
         super.readData(view);
-
-        // Tinting
-        color = view.read("color", Codec.INT).orElse(0xFFFFFF);
-        this.updateListeners(world);
-
         // Shell thing
         if (!this.readLootTable(view)) {
             this.stack = view.read("item", ItemStack.CODEC).orElse(ItemStack.EMPTY);
@@ -58,16 +45,9 @@ public class BlonkBlockEntity extends BlockEntity implements LootableInventory, 
     protected void writeData(WriteView view) {
         super.writeData(view);
 
-        view.putInt("color", color);
-
         if (!this.writeLootTable(view) && !this.stack.isEmpty()) {
             view.put("item", ItemStack.CODEC, this.stack);
         }
-    }
-
-    @Override
-    public @Nullable Object getRenderData() {
-        return color;
     }
 
     @Override

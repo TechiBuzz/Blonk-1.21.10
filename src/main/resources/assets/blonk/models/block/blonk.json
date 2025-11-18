@@ -2,41 +2,24 @@
 	"format_version": "1.21.6",
 	"credit": "Made with Blockbench",
 	"textures": {
-		"particle": "blonk:block/blonk_top",
-		"back": "blonk:block/blonk_back",
-		"bottom": "blonk:block/blonk_bottom",
-		"front": "blonk:block/blonk_front",
-		"side": "blonk:block/blonk_side",
-		"top": "blonk:block/blonk_top",
-		"back_overlay": "blonk:block/blonk_back_overlay",
-		"side_overlay": "blonk:block/blonk_side_overlay",
-		"front_overlay": "blonk:block/blonk_front_overlay",
-		"bottom_overlay": "blonk:block/blonk_bottom_overlay"
+		"0": "blonk:block/blonk_back",
+		"1": "blonk:block/blonk_bottom",
+		"2": "blonk:block/blonk_front",
+		"3": "blonk:block/blonk_side",
+		"4": "blonk:block/blonk_top",
+		"particle": "blonk:block/blonk_top"
 	},
 	"elements": [
 		{
-			"name": "block",
 			"from": [0, 0, 0],
 			"to": [16, 16, 16],
 			"faces": {
-				"north": {"uv": [0, 0, 16, 16], "texture": "#front"},
-				"east": {"uv": [0, 0, 16, 16], "texture": "#side"},
-				"south": {"uv": [0, 0, 16, 16], "texture": "#back"},
-				"west": {"uv": [0, 0, 16, 16], "texture": "#side"},
-				"down": {"uv": [0, 0, 16, 16], "texture": "#bottom"}
-			}
-		},
-		{
-			"name": "overlay",
-			"from": [0, 0, 0],
-			"to": [16, 16, 16],
-			"faces": {
-				"north": {"uv": [0, 0, 16, 16], "texture": "#front_overlay", "tintindex": 0},
-				"east": {"uv": [0, 0, 16, 16], "texture": "#side_overlay", "tintindex": 0},
-				"south": {"uv": [0, 0, 16, 16], "texture": "#back_overlay", "tintindex": 0},
-				"west": {"uv": [0, 0, 16, 16], "texture": "#side_overlay", "tintindex": 0},
-				"up": {"uv": [0, 0, 16, 16], "texture": "#top", "tintindex": 0},
-				"down": {"uv": [0, 0, 16, 16], "texture": "#bottom_overlay", "tintindex": 0}
+				"north": {"uv": [0, 0, 16, 16], "texture": "#2"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#3"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#3"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#4"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#1"}
 			}
 		}
 	],

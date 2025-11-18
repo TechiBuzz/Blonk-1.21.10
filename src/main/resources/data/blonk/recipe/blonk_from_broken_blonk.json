@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "blonk_from_broken_blonk",
+  "ingredients": [
+    "blonk:broken_blonk"
+  ],
+  "result": {
+    "count": 1,
+    "id": "blonk:blonk"
+  }
+}

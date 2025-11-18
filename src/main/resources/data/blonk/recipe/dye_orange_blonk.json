@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "group": "blonk",
+  "ingredients": [
+    "minecraft:orange_dye",
+    [
+      "blonk:black_blonk",
+      "blonk:blue_blonk",
+      "blonk:brown_blonk",
+      "blonk:cyan_blonk",
+      "blonk:gray_blonk",
+      "blonk:green_blonk",
+      "blonk:light_blue_blonk",
+      "blonk:light_gray_blonk",
+      "blonk:lime_blonk",
+      "blonk:magenta_blonk",
+      "blonk:pink_blonk",
+      "blonk:purple_blonk",
+      "blonk:red_blonk",
+      "blonk:white_blonk",
+      "blonk:yellow_blonk",
+      "blonk:blonk"
+    ]
+  ],
+  "result": {
+    "count": 1,
+    "id": "blonk:orange_blonk"
+  }
+}

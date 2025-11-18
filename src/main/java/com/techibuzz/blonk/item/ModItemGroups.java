@@ -31,8 +31,26 @@ public class ModItemGroups {
                 entries.add(ModItems.TRACK);
 
                 entries.add(ModBlocks.AMMO_RACK);
-                entries.add(ModBlocks.CHONK);
+
                 entries.add(ModBlocks.BLONK);
+
+                entries.add(ModBlocks.WHITE_BLONK);
+                entries.add(ModBlocks.GRAY_BLONK);
+                entries.add(ModBlocks.LIGHT_GRAY_BLONK);
+                entries.add(ModBlocks.BLACK_BLONK);
+                entries.add(ModBlocks.BROWN_BLONK);
+                entries.add(ModBlocks.RED_BLONK);
+                entries.add(ModBlocks.ORANGE_BLONK);
+                entries.add(ModBlocks.YELLOW_BLONK);
+                entries.add(ModBlocks.LIME_BLONK);
+                entries.add(ModBlocks.GREEN_BLONK);
+                entries.add(ModBlocks.CYAN_BLONK);
+                entries.add(ModBlocks.LIGHT_BLUE_BLONK);
+                entries.add(ModBlocks.BLUE_BLONK);
+                entries.add(ModBlocks.PURPLE_BLONK);
+                entries.add(ModBlocks.MAGENTA_BLONK);
+                entries.add(ModBlocks.PINK_BLONK);
+
                 entries.add(ModBlocks.BROKEN_BLONK);
             })
             .build();

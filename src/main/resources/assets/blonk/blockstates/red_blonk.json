@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "blonk:block/red_blonk",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "blonk:block/red_blonk"
+    },
+    "facing=south": {
+      "model": "blonk:block/red_blonk",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "blonk:block/red_blonk",
+      "y": 270
+    }
+  }
+}

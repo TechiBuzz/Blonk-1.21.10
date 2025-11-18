@@ -11,7 +11,22 @@
   "block.blonk.ammo_rack": "Ammo Rack",
 
   "block.blonk.blonk": "Blonk",
-  "block.blonk.chonk": "Chonk",
+  "block.blonk.black_blonk": "Black Blonk",
+  "block.blonk.blue_blonk": "Blue Blonk",
+  "block.blonk.brown_blonk": "Brown Blonk",
+  "block.blonk.cyan_blonk": "Cyan Blonk",
+  "block.blonk.gray_blonk": "Gray Blonk",
+  "block.blonk.green_blonk": "Green Blonk",
+  "block.blonk.light_blue_blonk": "Light Blue Blonk",
+  "block.blonk.light_gray_blonk": "Light Gray Blonk",
+  "block.blonk.lime_blonk": "Lime Blonk",
+  "block.blonk.magenta_blonk": "Magenta Blonk",
+  "block.blonk.orange_blonk": "Orange Blonk",
+  "block.blonk.pink_blonk": "Pink Blonk",
+  "block.blonk.purple_blonk": "Purple Blonk",
+  "block.blonk.red_blonk": "Red Blonk",
+  "block.blonk.white_blonk": "White Blonk",
+  "block.blonk.yellow_blonk": "Yellow Blonk",
   "block.blonk.broken_blonk": "Broken Blonk",
 
   "itemGroup.blonk_item_group": "Blonk Mod Items"

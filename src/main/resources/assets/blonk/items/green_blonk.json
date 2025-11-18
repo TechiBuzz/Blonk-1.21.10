@@ -1,6 +1,1 @@
-{
-  "model": {
-    "type": "minecraft:model",
-    "model": "blonk:block/green_blonk"
-  }
-}
+{"model": {"type": "minecraft:model", "model": "blonk:block/green_blonk"}}

@@ -2,6 +2,7 @@ package com.techibuzz.blonk;
 
 import com.techibuzz.blonk.block.ModBlockEntities;
 import com.techibuzz.blonk.block.ModBlocks;
+import com.techibuzz.blonk.entity.ModEntities;
 import com.techibuzz.blonk.item.ModItemGroups;
 import com.techibuzz.blonk.item.ModItems;
 import net.fabricmc.api.ModInitializer;
@@ -24,6 +25,7 @@ public class Blonk implements ModInitializer {
         ModItems.registerModItems();
         ModBlocks.registerModBlocks();
         ModBlockEntities.registerModBlockEntities();
+        ModEntities.registerModEntities();
         ModItemGroups.registerModItemGroups();
 
         // Scrap trade to max level armorer

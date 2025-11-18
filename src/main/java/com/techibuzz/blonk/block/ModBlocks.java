@@ -39,8 +39,173 @@ public class ModBlocks {
             true
     );
 
-    public static final Block CHONK = register(
-            "chonk",
+    public static final Block BLACK_BLONK = register(
+            "black_blonk",
+            BlonkBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.DARK_GREEN)
+                    .sounds(BlockSoundGroup.NETHERITE)
+                    .requiresTool()
+                    .strength(50.0F, 1200.0F),
+            true
+    );
+
+    public static final Block BLUE_BLONK = register(
+            "blue_blonk",
+            BlonkBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.DARK_GREEN)
+                    .sounds(BlockSoundGroup.NETHERITE)
+                    .requiresTool()
+                    .strength(50.0F, 1200.0F),
+            true
+    );
+
+    public static final Block BROWN_BLONK = register(
+            "brown_blonk",
+            BlonkBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.DARK_GREEN)
+                    .sounds(BlockSoundGroup.NETHERITE)
+                    .requiresTool()
+                    .strength(50.0F, 1200.0F),
+            true
+    );
+
+    public static final Block CYAN_BLONK = register(
+            "cyan_blonk",
+            BlonkBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.DARK_GREEN)
+                    .sounds(BlockSoundGroup.NETHERITE)
+                    .requiresTool()
+                    .strength(50.0F, 1200.0F),
+            true
+    );
+
+    public static final Block GRAY_BLONK = register(
+            "gray_blonk",
+            BlonkBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.DARK_GREEN)
+                    .sounds(BlockSoundGroup.NETHERITE)
+                    .requiresTool()
+                    .strength(50.0F, 1200.0F),
+            true
+    );
+
+    public static final Block GREEN_BLONK = register(
+            "green_blonk",
+            BlonkBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.DARK_GREEN)
+                    .sounds(BlockSoundGroup.NETHERITE)
+                    .requiresTool()
+                    .strength(50.0F, 1200.0F),
+            true
+    );
+
+    public static final Block LIGHT_BLUE_BLONK = register(
+            "light_blue_blonk",
+            BlonkBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.DARK_GREEN)
+                    .sounds(BlockSoundGroup.NETHERITE)
+                    .requiresTool()
+                    .strength(50.0F, 1200.0F),
+            true
+    );
+
+    public static final Block LIGHT_GRAY_BLONK = register(
+            "light_gray_blonk",
+            BlonkBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.DARK_GREEN)
+                    .sounds(BlockSoundGroup.NETHERITE)
+                    .requiresTool()
+                    .strength(50.0F, 1200.0F),
+            true
+    );
+
+    public static final Block LIME_BLONK = register(
+            "lime_blonk",
+            BlonkBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.DARK_GREEN)
+                    .sounds(BlockSoundGroup.NETHERITE)
+                    .requiresTool()
+                    .strength(50.0F, 1200.0F),
+            true
+    );
+
+    public static final Block MAGENTA_BLONK = register(
+            "magenta_blonk",
+            BlonkBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.DARK_GREEN)
+                    .sounds(BlockSoundGroup.NETHERITE)
+                    .requiresTool()
+                    .strength(50.0F, 1200.0F),
+            true
+    );
+
+    public static final Block ORANGE_BLONK = register(
+            "orange_blonk",
+            BlonkBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.DARK_GREEN)
+                    .sounds(BlockSoundGroup.NETHERITE)
+                    .requiresTool()
+                    .strength(50.0F, 1200.0F),
+            true
+    );
+
+    public static final Block PINK_BLONK = register(
+            "pink_blonk",
+            BlonkBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.DARK_GREEN)
+                    .sounds(BlockSoundGroup.NETHERITE)
+                    .requiresTool()
+                    .strength(50.0F, 1200.0F),
+            true
+    );
+
+    public static final Block PURPLE_BLONK = register(
+            "purple_blonk",
+            BlonkBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.DARK_GREEN)
+                    .sounds(BlockSoundGroup.NETHERITE)
+                    .requiresTool()
+                    .strength(50.0F, 1200.0F),
+            true
+    );
+
+    public static final Block RED_BLONK = register(
+            "red_blonk",
+            BlonkBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.DARK_GREEN)
+                    .sounds(BlockSoundGroup.NETHERITE)
+                    .requiresTool()
+                    .strength(50.0F, 1200.0F),
+            true
+    );
+
+    public static final Block WHITE_BLONK = register(
+            "white_blonk",
+            BlonkBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.DARK_GREEN)
+                    .sounds(BlockSoundGroup.NETHERITE)
+                    .requiresTool()
+                    .strength(50.0F, 1200.0F),
+            true
+    );
+
+    public static final Block YELLOW_BLONK = register(
+            "yellow_blonk",
             BlonkBlock::new,
             AbstractBlock.Settings.create()
                     .mapColor(MapColor.DARK_GREEN)

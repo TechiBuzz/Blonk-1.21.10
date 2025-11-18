@@ -1,21 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_iron_chain": {
+    "has_needed_dye": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:iron_chain"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_shell": {
-      "conditions": {
-        "items": [
-          {
-            "items": "blonk:shell"
+            "items": "minecraft:orange_dye"
           }
         ]
       },
@@ -23,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "blonk:metal_alloy"
+        "recipe": "blonk:dye_orange_blonk"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -31,13 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_shell",
-      "has_iron_chain"
+      "has_needed_dye"
     ]
   ],
   "rewards": {
     "recipes": [
-      "blonk:metal_alloy"
+      "blonk:dye_orange_blonk"
     ]
   }
 }
