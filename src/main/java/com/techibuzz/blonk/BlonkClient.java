@@ -1,8 +1,8 @@
-package com.techibuzz.blonk.client;
+package com.techibuzz.blonk;
 
 import com.techibuzz.blonk.entity.ModEntities;
-import com.techibuzz.blonk.entity.client.ShellProjectileModel;
-import com.techibuzz.blonk.entity.client.ShellProjectileEntityRenderer;
+import com.techibuzz.blonk.entity.client.ShellEntityModel;
+import com.techibuzz.blonk.entity.client.ShellEntityRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -14,8 +14,14 @@ public class BlonkClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        EntityModelLayerRegistry.registerModelLayer(ShellProjectileModel.SHELL, ShellProjectileModel::getTexturedModelData);
-        EntityRendererFactories.register(ModEntities.SHELL, ShellProjectileEntityRenderer::new);
+        EntityRendererFactories.register(
+                ModEntities.SHELL,
+                ShellEntityRenderer::new
+        );
+        EntityModelLayerRegistry.registerModelLayer(
+                ShellEntityModel.SHELL,
+                ShellEntityModel::getTexturedModelData
+        );
     }
 
 }

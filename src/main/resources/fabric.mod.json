@@ -14,7 +14,7 @@
       "com.techibuzz.blonk.BlonkDataGenerator"
     ],
     "client": [
-      "com.techibuzz.blonk.client.BlonkClient"
+      "com.techibuzz.blonk.BlonkClient"
     ],
     "main": [
       "com.techibuzz.blonk.Blonk"

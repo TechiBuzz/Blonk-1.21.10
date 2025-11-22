@@ -52,6 +52,8 @@ public class ModItemGroups {
                 entries.add(ModBlocks.PINK_BLONK);
 
                 entries.add(ModBlocks.BROKEN_BLONK);
+
+                entries.add(ModItems.SHELL_TESTING_ITEM);
             })
             .build();
 

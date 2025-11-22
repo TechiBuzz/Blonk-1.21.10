@@ -1,6 +1,7 @@
 package com.techibuzz.blonk.item;
 
 import com.techibuzz.blonk.Blonk;
+import com.techibuzz.blonk.item.custom.ShellTestingItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -54,6 +55,12 @@ public class ModItems {
     public static final Item TRACK = registerItem(
             "track",
             Item::new,
+            new Item.Settings()
+    );
+
+    public static final Item SHELL_TESTING_ITEM = registerItem(
+            "shell_testing_item",
+            ShellTestingItem::new,
             new Item.Settings()
     );
 

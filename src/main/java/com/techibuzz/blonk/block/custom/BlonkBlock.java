@@ -6,7 +6,6 @@ import com.techibuzz.blonk.block.entity.BlonkBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -19,6 +18,8 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
+import net.minecraft.state.property.Properties;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -30,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class BlonkBlock extends BlockWithEntity {
 
-    public static final EnumProperty<Direction> FACING = HorizontalFacingBlock.FACING;
+    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
 
     public BlonkBlock(Settings settings) {
         super(settings);
@@ -42,27 +43,19 @@ public class BlonkBlock extends BlockWithEntity {
             return super.onUseWithItem(itemStack, state, world, pos, player, hand, hit);
         }
 
-        // Armor
-        if (world.isClient()) {
-            return ActionResult.SUCCESS;
-        } else {
-            ItemStack blockEntityStack = blonkBlockEntity.getStack();
-            if (!itemStack.isEmpty()
-                && itemStack.getItem().equals(ModBlocks.AMMO_RACK.asItem())
-                && (blockEntityStack.isEmpty() || ItemStack.areItemsAndComponentsEqual(blockEntityStack, itemStack)
-                && blockEntityStack.getCount() < blonkBlockEntity.getMaxStackSize())
-            ) {
+        // Ammo rack
+        if (!world.isClient()) {
+            if (itemStack.getItem().equals(ModBlocks.AMMO_RACK.asItem()) && blonkBlockEntity.getAmmoRackCount() < blonkBlockEntity.getMaxAmmoRackCount()) {
                 player.incrementStat(Stats.USED.getOrCreateStat(itemStack.getItem()));
 
                 ItemStack freshItemStack = itemStack.splitUnlessCreative(1, player);
                 float freshStackCount;
-                if (blonkBlockEntity.isEmpty()) {
-                    blonkBlockEntity.setStack(freshItemStack);
+                if (blonkBlockEntity.getAmmoRackCount() == 0) {
                     freshStackCount = (float) freshItemStack.getCount() / freshItemStack.getMaxCount();
                 } else {
-                    blockEntityStack.increment(1);
-                    freshStackCount = (float) blockEntityStack.getCount() / blockEntityStack.getMaxCount();
+                    freshStackCount = (float) blonkBlockEntity.getAmmoRackCount() / blonkBlockEntity.getMaxAmmoRackCount();
                 }
+                blonkBlockEntity.addAmmoRack();
 
                 world.playSound(null, pos, SoundEvents.BLOCK_DECORATED_POT_INSERT, SoundCategory.BLOCKS, 1.0F, 0.7F + 0.5F * freshStackCount);
                 if (world instanceof ServerWorld serverWorld) {
@@ -73,9 +66,11 @@ public class BlonkBlock extends BlockWithEntity {
                 world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
                 return ActionResult.SUCCESS;
             } else {
-                return  ActionResult.PASS;
+                return  ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
             }
         }
+
+        return ActionResult.SUCCESS;
     }
 
     @Override
