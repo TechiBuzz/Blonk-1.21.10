@@ -1,0 +1,8 @@
+{
+  "blonk_shoot": {
+    "subtitle": "sounds.blonk.blonk_shoot",
+    "sounds": [
+      "blonk:blonk_shoot"
+    ]
+  }
+}

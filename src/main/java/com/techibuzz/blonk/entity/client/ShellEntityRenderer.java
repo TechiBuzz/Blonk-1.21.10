@@ -28,8 +28,9 @@ public class ShellEntityRenderer extends EntityRenderer<ShellEntity, ShellEntity
     public void render(ShellEntityRenderState shellEntityRenderState, MatrixStack matrixStack, OrderedRenderCommandQueue orderedRenderCommandQueue, CameraRenderState cameraRenderState) {
         matrixStack.push();
 
-        matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(shellEntityRenderState.yaw - 90.F));
-        matrixStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(shellEntityRenderState.pitch + 90.F));
+        matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(shellEntityRenderState.yaw));
+        matrixStack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(shellEntityRenderState.pitch));
+
         orderedRenderCommandQueue.submitModel(this.model, shellEntityRenderState, matrixStack, RenderLayer.getEntitySolid(TEXTURE), shellEntityRenderState.light, OverlayTexture.DEFAULT_UV, shellEntityRenderState.outlineColor, null);
 
         matrixStack.pop();
@@ -44,8 +45,13 @@ public class ShellEntityRenderer extends EntityRenderer<ShellEntity, ShellEntity
     @Override
     public void updateRenderState(ShellEntity shellEntity, ShellEntityRenderState shellEntityRenderState, float tickProgress) {
         super.updateRenderState(shellEntity, shellEntityRenderState, tickProgress);
-        shellEntityRenderState.yaw = shellEntity.getLerpedYaw(tickProgress);
-        shellEntityRenderState.yaw = shellEntity.getLerpedYaw(tickProgress);
+        shellEntityRenderState.yaw = switch (ShellEntity.FACING) {
+            case NORTH -> 180;
+            case EAST -> 90;
+            case WEST -> -90;
+            default -> 0;
+        };
+        shellEntityRenderState.pitch = shellEntity.getPitch();
     }
 }
 

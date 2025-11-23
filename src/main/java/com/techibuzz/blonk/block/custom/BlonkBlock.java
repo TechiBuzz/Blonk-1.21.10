@@ -3,11 +3,17 @@ package com.techibuzz.blonk.block.custom;
 import com.mojang.serialization.MapCodec;
 import com.techibuzz.blonk.block.ModBlocks;
 import com.techibuzz.blonk.block.entity.BlonkBlockEntity;
+import com.techibuzz.blonk.entity.ModEntities;
+import com.techibuzz.blonk.entity.custom.ShellEntity;
+import com.techibuzz.blonk.item.ModItems;
+import com.techibuzz.blonk.sound.ModSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -19,12 +25,13 @@ import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
@@ -45,29 +52,49 @@ public class BlonkBlock extends BlockWithEntity {
 
         // Ammo rack
         if (!world.isClient()) {
-            if (itemStack.getItem().equals(ModBlocks.AMMO_RACK.asItem()) && blonkBlockEntity.getAmmoRackCount() < blonkBlockEntity.getMaxAmmoRackCount()) {
+            if (itemStack.getItem().equals(ModBlocks.AMMO_RACK.asItem()) && (blonkBlockEntity.getAmmoCount() + 8) <= 64) {
                 player.incrementStat(Stats.USED.getOrCreateStat(itemStack.getItem()));
 
                 ItemStack freshItemStack = itemStack.splitUnlessCreative(1, player);
                 float freshStackCount;
-                if (blonkBlockEntity.getAmmoRackCount() == 0) {
+                if (blonkBlockEntity.getAmmoCount() == 0) {
                     freshStackCount = (float) freshItemStack.getCount() / freshItemStack.getMaxCount();
                 } else {
-                    freshStackCount = (float) blonkBlockEntity.getAmmoRackCount() / blonkBlockEntity.getMaxAmmoRackCount();
+                    freshStackCount = (float) blonkBlockEntity.getAmmoCount() / blonkBlockEntity.getMaxAmmoCount();
                 }
-                blonkBlockEntity.addAmmoRack();
+                blonkBlockEntity.incrementAmmo();
 
                 world.playSound(null, pos, SoundEvents.BLOCK_DECORATED_POT_INSERT, SoundCategory.BLOCKS, 1.0F, 0.7F + 0.5F * freshStackCount);
                 if (world instanceof ServerWorld serverWorld) {
                     serverWorld.spawnParticles(ParticleTypes.DUST_PLUME, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5, 7, 0.0, 0.0, 0.0, 0.0);
                 }
+            } else if (player.getMainHandStack().isEmpty() && blonkBlockEntity.getAmmoCount() > 0) {
+                Vec3d firingPosition = pos.toCenterPos().offset(state.get(FACING), 0.5);
+                Vec3i firingVelocity = state.get(FACING).getVector();
 
-                blonkBlockEntity.markDirty();
-                world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-                return ActionResult.SUCCESS;
-            } else {
-                return  ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
+                ShellEntity shellEntity = new ShellEntity(ModEntities.SHELL, world);
+                ShellEntity.FACING = state.get(FACING);
+                shellEntity.setPosition(firingPosition);
+
+                ProjectileEntity.spawnWithVelocity(
+                        (world1, shooter, stack) -> shellEntity,
+                        (ServerWorld) world,
+                        this.asItem().getDefaultStack(),
+                        player,
+                        firingVelocity.getX(),
+                        firingVelocity.getY(),
+                        firingVelocity.getZ(),
+                        blonkBlockEntity.getFiringPower(),
+                        0.5f
+                );
+                world.playSound(null, pos, ModSounds.BLONK_SHOOT, SoundCategory.BLOCKS, 2.0F, 1.0f);
+                world.spawnEntity(new ItemEntity(world, firingPosition.getX(), firingPosition.getY(), firingPosition.getZ(), new ItemStack(ModItems.CASING)));
+
+                blonkBlockEntity.decrementAmmo();
+
             }
+            blonkBlockEntity.markDirty();
+            world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
         }
 
         return ActionResult.SUCCESS;

@@ -1,24 +1,25 @@
 package com.techibuzz.blonk.entity.custom;
 
-import com.techibuzz.blonk.block.ModBlockEntities;
 import com.techibuzz.blonk.block.ModBlocks;
 import com.techibuzz.blonk.block.entity.BlonkBlockEntity;
-import com.techibuzz.blonk.entity.ModEntities;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalFacingBlock;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.projectile.ExplosiveProjectileEntity;
-import net.minecraft.state.property.Properties;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class ShellEntity extends ExplosiveProjectileEntity {
+    public static Direction FACING = Direction.SOUTH;
+
     public ShellEntity(EntityType<? extends ExplosiveProjectileEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -50,10 +51,13 @@ public class ShellEntity extends ExplosiveProjectileEntity {
         super.onBlockHit(blockHitResult);
 
         BlockPos pos = blockHitResult.getBlockPos();
-        if (this.getEntityWorld().getBlockEntity(pos) instanceof BlonkBlockEntity) {
-            this.getEntityWorld().setBlockState(pos, ModBlocks.BROKEN_BLONK.getDefaultState().with(Properties.HORIZONTAL_FACING, this.getEntityWorld().getBlockState(pos).get(Properties.HORIZONTAL_FACING)));
+        World world = this.getEntityWorld();
+        if (!world.isClient() && world.getBlockEntity(pos) instanceof BlonkBlockEntity) {
+            world.setBlockState(pos, Blocks.AIR.getDefaultState());
+            world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModBlocks.BROKEN_BLONK.asItem())));
         }
     }
+
 
     @Override
     public boolean isOnFire() {

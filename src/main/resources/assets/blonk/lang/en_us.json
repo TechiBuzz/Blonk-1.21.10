@@ -29,5 +29,7 @@
   "block.blonk.yellow_blonk": "Yellow Blonk",
   "block.blonk.broken_blonk": "Broken Blonk",
 
-  "itemGroup.blonk_item_group": "Blonk Mod Items"
+  "itemGroup.blonk_item_group": "Blonk Mod Items",
+
+  "sounds.blonk.blonk_shoot": "Blonk Fired"
 }

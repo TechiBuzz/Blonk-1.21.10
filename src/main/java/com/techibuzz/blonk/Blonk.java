@@ -5,6 +5,7 @@ import com.techibuzz.blonk.block.ModBlocks;
 import com.techibuzz.blonk.entity.ModEntities;
 import com.techibuzz.blonk.item.ModItemGroups;
 import com.techibuzz.blonk.item.ModItems;
+import com.techibuzz.blonk.sound.ModSounds;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.minecraft.item.ItemStack;
@@ -27,6 +28,7 @@ public class Blonk implements ModInitializer {
         ModBlockEntities.registerModBlockEntities();
         ModEntities.registerModEntities();
         ModItemGroups.registerModItemGroups();
+        ModSounds.registerModSounds();
 
         // Scrap trade to max level armorer
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.ARMORER, 5, factories -> {
