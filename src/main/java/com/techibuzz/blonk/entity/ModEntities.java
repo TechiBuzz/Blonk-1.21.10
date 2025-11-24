@@ -11,7 +11,6 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 
 public class ModEntities {
-
     private static final RegistryKey<EntityType<?>> SHELL_KEY = RegistryKey.of(
             RegistryKeys.ENTITY_TYPE,
             Identifier.of(Blonk.MOD_ID, "shell")
@@ -27,5 +26,4 @@ public class ModEntities {
     public static void registerModEntities() {
         Blonk.LOGGER.info("Registering mod entities for - " + Blonk.MOD_ID);
     }
-
 }

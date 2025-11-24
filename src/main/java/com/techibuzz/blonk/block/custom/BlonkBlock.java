@@ -20,7 +20,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
@@ -37,7 +36,6 @@ import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 public class BlonkBlock extends BlockWithEntity {
-
     public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
 
     public BlonkBlock(Settings settings) {
@@ -50,8 +48,8 @@ public class BlonkBlock extends BlockWithEntity {
             return super.onUseWithItem(itemStack, state, world, pos, player, hand, hit);
         }
 
-        // Ammo rack
         if (!world.isClient()) {
+            // Ammo Rack Loading
             if (itemStack.getItem().equals(ModBlocks.AMMO_RACK.asItem()) && (blonkBlockEntity.getAmmoCount() + 8) <= 64) {
                 player.incrementStat(Stats.USED.getOrCreateStat(itemStack.getItem()));
 
@@ -64,11 +62,11 @@ public class BlonkBlock extends BlockWithEntity {
                 }
                 blonkBlockEntity.incrementAmmo();
 
-                world.playSound(null, pos, SoundEvents.BLOCK_DECORATED_POT_INSERT, SoundCategory.BLOCKS, 1.0F, 0.7F + 0.5F * freshStackCount);
+                world.playSound(null, pos, ModSounds.BLONK_LOAD, SoundCategory.BLOCKS, 1.0F, 0.7F + 0.5F * freshStackCount);
                 if (world instanceof ServerWorld serverWorld) {
                     serverWorld.spawnParticles(ParticleTypes.DUST_PLUME, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5, 7, 0.0, 0.0, 0.0, 0.0);
                 }
-            } else if (player.getMainHandStack().isEmpty() && blonkBlockEntity.getAmmoCount() > 0) {
+            } else if (player.getMainHandStack().isEmpty() && blonkBlockEntity.getAmmoCount() > 0) {  // Blonk Shoot
                 Vec3d firingPosition = pos.toCenterPos().offset(state.get(FACING), 0.5);
                 Vec3i firingVelocity = state.get(FACING).getVector();
 
@@ -85,14 +83,14 @@ public class BlonkBlock extends BlockWithEntity {
                         firingVelocity.getY(),
                         firingVelocity.getZ(),
                         blonkBlockEntity.getFiringPower(),
-                        0.5f
+                        3.5f
                 );
                 world.playSound(null, pos, ModSounds.BLONK_SHOOT, SoundCategory.BLOCKS, 2.0F, 1.0f);
-                world.spawnEntity(new ItemEntity(world, firingPosition.getX(), firingPosition.getY(), firingPosition.getZ(), new ItemStack(ModItems.CASING)));
+                world.spawnEntity(new ItemEntity(world, pos.toCenterPos().getX(), pos.toCenterPos().getY() + 0.6, pos.toCenterPos().getZ(), new ItemStack(ModItems.CASING)));
 
                 blonkBlockEntity.decrementAmmo();
-
             }
+
             blonkBlockEntity.markDirty();
             world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
         }

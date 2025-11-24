@@ -26,5 +26,4 @@ public class ShellEntityModel extends EntityModel<ShellEntityRenderState> {
 
         return TexturedModelData.of(modelData, 32, 32);
     }
-
 }

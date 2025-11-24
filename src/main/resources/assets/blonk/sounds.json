@@ -1,4 +1,10 @@
 {
+  "blonk_load": {
+    "subtitle": "sounds.blonk.blonk_load",
+    "sounds": [
+      "blonk:blonk_load"
+    ]
+  },
   "blonk_shoot": {
     "subtitle": "sounds.blonk.blonk_shoot",
     "sounds": [

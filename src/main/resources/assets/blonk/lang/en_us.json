@@ -31,5 +31,6 @@
 
   "itemGroup.blonk_item_group": "Blonk Mod Items",
 
+  "sounds.blonk.blonk_load": "Blonk Loaded",
   "sounds.blonk.blonk_shoot": "Blonk Fired"
 }

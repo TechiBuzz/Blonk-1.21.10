@@ -3,6 +3,7 @@ package com.techibuzz.blonk.block;
 import com.techibuzz.blonk.Blonk;
 import com.techibuzz.blonk.block.custom.BlonkBlock;
 import com.techibuzz.blonk.block.custom.BrokenBlonkBlock;
+import com.techibuzz.blonk.item.ModItems;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
@@ -16,12 +17,10 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Function;
 
 public class ModBlocks {
-
     public static final Block AMMO_RACK = register(
             "ammo_rack",
             Block::new,
@@ -30,7 +29,7 @@ public class ModBlocks {
                     .sounds(BlockSoundGroup.IRON)
                     .breakInstantly(),
             true,
-            null
+            new Item.Settings()
     );
 
     public static final Block BLONK = register(
@@ -42,7 +41,7 @@ public class ModBlocks {
                     .requiresTool()
                     .strength(50.0F, 1200.0F),
             true,
-            null
+            new Item.Settings()
     );
 
     public static final Block BLACK_BLONK = register(
@@ -54,7 +53,7 @@ public class ModBlocks {
                     .requiresTool()
                     .strength(50.0F, 1200.0F),
             true,
-            null
+            new Item.Settings()
     );
 
     public static final Block BLUE_BLONK = register(
@@ -66,7 +65,7 @@ public class ModBlocks {
                     .requiresTool()
                     .strength(50.0F, 1200.0F),
             true,
-            null
+            new Item.Settings()
     );
 
     public static final Block BROWN_BLONK = register(
@@ -78,7 +77,7 @@ public class ModBlocks {
                     .requiresTool()
                     .strength(50.0F, 1200.0F),
             true,
-            null
+            new Item.Settings()
     );
 
     public static final Block CYAN_BLONK = register(
@@ -90,7 +89,7 @@ public class ModBlocks {
                     .requiresTool()
                     .strength(50.0F, 1200.0F),
             true,
-            null
+            new Item.Settings()
     );
 
     public static final Block GRAY_BLONK = register(
@@ -102,7 +101,7 @@ public class ModBlocks {
                     .requiresTool()
                     .strength(50.0F, 1200.0F),
             true,
-            null
+            new Item.Settings()
     );
 
     public static final Block GREEN_BLONK = register(
@@ -114,7 +113,7 @@ public class ModBlocks {
                     .requiresTool()
                     .strength(50.0F, 1200.0F),
             true,
-            null
+            new Item.Settings()
     );
 
     public static final Block LIGHT_BLUE_BLONK = register(
@@ -126,7 +125,7 @@ public class ModBlocks {
                     .requiresTool()
                     .strength(50.0F, 1200.0F),
             true,
-            null
+            new Item.Settings()
     );
 
     public static final Block LIGHT_GRAY_BLONK = register(
@@ -138,7 +137,7 @@ public class ModBlocks {
                     .requiresTool()
                     .strength(50.0F, 1200.0F),
             true,
-            null
+            new Item.Settings()
     );
 
     public static final Block LIME_BLONK = register(
@@ -150,7 +149,7 @@ public class ModBlocks {
                     .requiresTool()
                     .strength(50.0F, 1200.0F),
             true,
-            null
+            new Item.Settings()
     );
 
     public static final Block MAGENTA_BLONK = register(
@@ -162,7 +161,7 @@ public class ModBlocks {
                     .requiresTool()
                     .strength(50.0F, 1200.0F),
             true,
-            null
+            new Item.Settings()
     );
 
     public static final Block ORANGE_BLONK = register(
@@ -174,7 +173,7 @@ public class ModBlocks {
                     .requiresTool()
                     .strength(50.0F, 1200.0F),
             true,
-            null
+            new Item.Settings()
     );
 
     public static final Block PINK_BLONK = register(
@@ -186,7 +185,7 @@ public class ModBlocks {
                     .requiresTool()
                     .strength(50.0F, 1200.0F),
             true,
-            null
+            new Item.Settings()
     );
 
     public static final Block PURPLE_BLONK = register(
@@ -198,7 +197,7 @@ public class ModBlocks {
                     .requiresTool()
                     .strength(50.0F, 1200.0F),
             true,
-            null
+            new Item.Settings()
     );
 
     public static final Block RED_BLONK = register(
@@ -210,7 +209,7 @@ public class ModBlocks {
                     .requiresTool()
                     .strength(50.0F, 1200.0F),
             true,
-            null
+            new Item.Settings()
     );
 
     public static final Block WHITE_BLONK = register(
@@ -222,7 +221,7 @@ public class ModBlocks {
                     .requiresTool()
                     .strength(50.0F, 1200.0F),
             true,
-            null
+            new Item.Settings()
     );
 
     public static final Block YELLOW_BLONK = register(
@@ -234,7 +233,7 @@ public class ModBlocks {
                     .requiresTool()
                     .strength(50.0F, 1200.0F),
             true,
-            null
+            new Item.Settings()
     );
 
     public static final Block BROKEN_BLONK = register(
@@ -246,23 +245,20 @@ public class ModBlocks {
                     .requiresTool()
                     .strength(5.0F, 6.0F),
             true,
-            new Item.Settings().component(DataComponentTypes.DAMAGE_RESISTANT, new DamageResistantComponent(DamageTypeTags.IS_EXPLOSION))
+            new Item.Settings()
+                    .component(DataComponentTypes.DAMAGE_RESISTANT, new DamageResistantComponent(DamageTypeTags.IS_EXPLOSION))
+                    .repairable(ModItems.SCRAP)
     );
 
-    private static Block register(String name, Function<AbstractBlock.Settings, Block> blockFactory, AbstractBlock.Settings settings, boolean shouldRegisterItem, @Nullable Item.Settings customItemSettings) {
+    private static Block register(String name, Function<AbstractBlock.Settings, Block> blockFactory, AbstractBlock.Settings settings, boolean shouldRegisterItem, Item.Settings customItemSettings) {
         RegistryKey<Block> blockKey = RegistryKey.of(Registries.BLOCK.getKey(), Identifier.of(Blonk.MOD_ID, name));
         Block block = blockFactory.apply(settings.registryKey(blockKey));
 
         // Blocks with items
         if (shouldRegisterItem) {
             RegistryKey<Item> itemKey =  RegistryKey.of(Registries.ITEM.getKey(), Identifier.of(Blonk.MOD_ID, name));
-            BlockItem blockItem;
 
-            if (customItemSettings != null) {
-                blockItem = new BlockItem(block, customItemSettings.registryKey(itemKey).useBlockPrefixedTranslationKey());
-            } else {
-                blockItem = new BlockItem(block, new Item.Settings().registryKey(itemKey).useBlockPrefixedTranslationKey());
-            }
+            BlockItem blockItem = new BlockItem(block, customItemSettings.registryKey(itemKey).useBlockPrefixedTranslationKey());
 
             Registry.register(Registries.ITEM, itemKey, blockItem);
         }

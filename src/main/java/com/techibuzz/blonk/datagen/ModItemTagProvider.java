@@ -7,8 +7,6 @@ import net.minecraft.registry.RegistryWrapper;
 import java.util.concurrent.CompletableFuture;
 
 public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
-
-
     public ModItemTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, registriesFuture);
     }
@@ -17,5 +15,4 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
     public void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
 
     }
-
 }

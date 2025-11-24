@@ -13,7 +13,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 public class ShellTestingItem extends Item {
-
     public ShellTestingItem(Settings settings) {
         super(settings);
     }
@@ -23,7 +22,6 @@ public class ShellTestingItem extends Item {
         if (!world.isClient()) {
             ShellEntity shellEntity = new ShellEntity(ModEntities.SHELL, world);
             shellEntity.setPosition(user.getEyePos());
-            shellEntity.rotate(90, true, 10, true);
 
             ProjectileEntity.spawnWithVelocity(
                     (world1, shooter, stack) -> shellEntity,
@@ -34,9 +32,7 @@ public class ShellTestingItem extends Item {
                     1.5F,
                     0.0F
             );
-
         }
         return ActionResult.SUCCESS;
     }
-
 }

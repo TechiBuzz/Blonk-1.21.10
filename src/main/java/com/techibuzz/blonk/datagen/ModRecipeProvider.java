@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class ModRecipeProvider extends FabricRecipeProvider {
-
     public ModRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, registriesFuture);
     }
@@ -157,7 +156,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .offerTo(exporter);
 
                 // BROKEN BLONK REPAIR
-                offerShapelessRecipe(ModBlocks.BLONK, ModBlocks.BROKEN_BLONK,"blonk_from_broken_blonk", 1);
+                createShapeless(RecipeCategory.COMBAT, ModBlocks.BLONK).input(ModBlocks.BROKEN_BLONK).input(ModItems.SCRAP).offerTo(exporter);
 
                 // DYE-ABLE BLONKS
                 offerDyeablesRecipes(

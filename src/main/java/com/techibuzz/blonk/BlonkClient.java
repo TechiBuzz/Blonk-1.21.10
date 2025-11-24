@@ -23,5 +23,4 @@ public class BlonkClient implements ClientModInitializer {
                 ShellEntityModel::getTexturedModelData
         );
     }
-
 }

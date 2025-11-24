@@ -12,7 +12,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class ModItemGroups {
-
     public static final RegistryKey<ItemGroup> BLONK_ITEM_GROUP_KEY = RegistryKey.of(
             Registries.ITEM_GROUP.getKey(),
             Identifier.of("blonk_item_group", Blonk.MOD_ID)
@@ -62,5 +61,4 @@ public class ModItemGroups {
 
         Registry.register(Registries.ITEM_GROUP, BLONK_ITEM_GROUP_KEY, BLONK_ITEM_GROUP);
     }
-
 }

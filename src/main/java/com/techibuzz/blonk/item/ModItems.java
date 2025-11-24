@@ -12,7 +12,6 @@ import net.minecraft.util.Identifier;
 import java.util.function.Function;
 
 public class ModItems {
-
     public static final Item CASING = registerItem(
             "casing",
             Item::new,
@@ -66,18 +65,13 @@ public class ModItems {
 
 
     private static Item registerItem(String name, Function<Item.Settings, Item> itemFactory, Item.Settings settings) {
-        // Create key
         RegistryKey<Item> itemKey = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(Blonk.MOD_ID, name));
-        // Item instance
         Item item = itemFactory.apply(settings.registryKey(itemKey));
-        // Register the item
-        Registry.register(Registries.ITEM, itemKey, item);
 
-        return item;
+        return Registry.register(Registries.ITEM, itemKey, item);
     }
 
     public static void registerModItems() {
         Blonk.LOGGER.info("Registering mod items for - " + Blonk.MOD_ID);
     }
-
 }
