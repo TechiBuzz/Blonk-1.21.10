@@ -11,6 +11,8 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -58,7 +60,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     );
 
     @Override
-    protected RecipeProvider createRecipeProvider(HolderLookup.Provider registryLookup, RecipeOutput exporter) {
+    protected @NotNull RecipeProvider createRecipeProvider(HolderLookup.Provider registryLookup, RecipeOutput exporter) {
         return new RecipeProvider(registryLookup, exporter) {
             @Override
             public void buildRecipes() {
@@ -148,7 +150,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "BlonkModRecipeGenerator";
     }
 }

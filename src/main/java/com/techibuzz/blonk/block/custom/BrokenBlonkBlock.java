@@ -35,24 +35,19 @@ public class BrokenBlonkBlock extends HorizontalDirectionalBlock {
     }
 
     @Override
-    public @Nullable BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection());
-    }
-
-    @Override
-    protected @NotNull InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (!world.isClientSide()) {
+    protected @NotNull InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (!level.isClientSide()) {
             if (stack.is(ModItems.SCRAP)) {
                 player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
                 stack.consume(1, player);
 
-                world.setBlockAndUpdate(pos, ModBlocks.BLONK.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, state.getValue(FACING)));
-                world.playSound(null, pos, SoundEvents.WET_SPONGE_DRIES, SoundSource.BLOCKS, 1.0f, 1.0f);
+                level.setBlockAndUpdate(pos, ModBlocks.BLONK.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, state.getValue(FACING)));
+                level.playSound(null, pos, SoundEvents.WET_SPONGE_DRIES, SoundSource.BLOCKS, 1.0f, 1.0f);
 
-                if (world instanceof ServerLevel serverWorld) {
-                    RandomSource random = world.getRandom();
-                    serverWorld.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, (double)pos.getX() + (double)0.5F + random.nextDouble() / (double)3.0F * (double)(random.nextBoolean() ? 1 : -1), (double)pos.getY() + random.nextDouble() + random.nextDouble(), (double)pos.getZ() + (double)0.5F + random.nextDouble() / (double)3.0F * (double)(random.nextBoolean() ? 1 : -1), 10,0.001F, 0.2d, 0.001F, 0.02F);
-                    serverWorld.sendParticles(ParticleTypes.HAPPY_VILLAGER, (double)pos.getX() + (double)0.5F + random.nextDouble() / (double)3.0F * (double)(random.nextBoolean() ? 1 : -1), (double)pos.getY() + random.nextDouble() + random.nextDouble(), (double)pos.getZ() + (double)0.5F + random.nextDouble() / (double)3.0F * (double)(random.nextBoolean() ? 1 : -1), 10,0.02F, 0.1d, 0.02F, 0.01F);
+                if (level instanceof ServerLevel serverLevel) {
+                    RandomSource random = level.getRandom();
+                    serverLevel.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, (double)pos.getX() + (double)0.5F + random.nextDouble() / (double)3.0F * (double)(random.nextBoolean() ? 1 : -1), (double)pos.getY() + random.nextDouble() + random.nextDouble(), (double)pos.getZ() + (double)0.5F + random.nextDouble() / (double)3.0F * (double)(random.nextBoolean() ? 1 : -1), 10,0.001F, 0.2d, 0.001F, 0.02F);
+                    serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, (double)pos.getX() + (double)0.5F + random.nextDouble() / (double)3.0F * (double)(random.nextBoolean() ? 1 : -1), (double)pos.getY() + random.nextDouble() + random.nextDouble(), (double)pos.getZ() + (double)0.5F + random.nextDouble() / (double)3.0F * (double)(random.nextBoolean() ? 1 : -1), 10,0.02F, 0.1d, 0.02F, 0.01F);
                 }
             }
         }
@@ -60,12 +55,17 @@ public class BrokenBlonkBlock extends HorizontalDirectionalBlock {
     }
 
     @Override
-    public MapCodec<? extends HorizontalDirectionalBlock> codec() {
-        return simpleCodec(BrokenBlonkBlock::new);
+    public @Nullable BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
     }
 
     @Override
     public void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
+    }
+
+    @Override
+    public @NotNull MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return simpleCodec(BrokenBlonkBlock::new);
     }
 }

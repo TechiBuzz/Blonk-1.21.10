@@ -49,8 +49,6 @@ public class ModItemGroups {
                 entries.accept(ModBlocks.PINK_BLONK);
 
                 entries.accept(ModBlocks.BROKEN_BLONK);
-
-                entries.accept(ModItems.SHELL_TESTING_ITEM);
             })
             .build();
 
