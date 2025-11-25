@@ -50,22 +50,27 @@ public class BlonkBlock extends BlockWithEntity {
 
         if (!world.isClient()) {
             // Ammo Rack Loading
-            if (itemStack.getItem().equals(ModBlocks.AMMO_RACK.asItem()) && (blonkBlockEntity.getAmmoCount() + 8) <= 64) {
-                player.incrementStat(Stats.USED.getOrCreateStat(itemStack.getItem()));
+            if (itemStack.isOf(ModBlocks.AMMO_RACK.asItem())) {
+                if ((blonkBlockEntity.getAmmoCount() + 8) <= 64) {
+                    player.incrementStat(Stats.USED.getOrCreateStat(itemStack.getItem()));
 
-                ItemStack freshItemStack = itemStack.splitUnlessCreative(1, player);
-                float freshStackCount;
-                if (blonkBlockEntity.getAmmoCount() == 0) {
-                    freshStackCount = (float) freshItemStack.getCount() / freshItemStack.getMaxCount();
+                    ItemStack freshItemStack = itemStack.splitUnlessCreative(1, player);
+                    float freshStackCount;
+                    if (blonkBlockEntity.getAmmoCount() == 0) {
+                        freshStackCount = (float) freshItemStack.getCount() / freshItemStack.getMaxCount();
+                    } else {
+                        freshStackCount = (float) blonkBlockEntity.getAmmoCount() / blonkBlockEntity.getMaxAmmoCount();
+                    }
+                    blonkBlockEntity.incrementAmmo();
+
+                    world.playSound(null, pos, ModSounds.BLONK_LOAD, SoundCategory.BLOCKS, 1.0F, 0.7F + 0.5F * freshStackCount);
+                    if (world instanceof ServerWorld serverWorld) {
+                        serverWorld.spawnParticles(ParticleTypes.DUST_PLUME, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5, 7, 0.0, 0.0, 0.0, 0.0);
+                    }
                 } else {
-                    freshStackCount = (float) blonkBlockEntity.getAmmoCount() / blonkBlockEntity.getMaxAmmoCount();
+                    world.playSound(null, pos, ModSounds.BLONK_LOAD_FAIL, SoundCategory.BLOCKS, 2.0F, 1.0f);
                 }
-                blonkBlockEntity.incrementAmmo();
 
-                world.playSound(null, pos, ModSounds.BLONK_LOAD, SoundCategory.BLOCKS, 1.0F, 0.7F + 0.5F * freshStackCount);
-                if (world instanceof ServerWorld serverWorld) {
-                    serverWorld.spawnParticles(ParticleTypes.DUST_PLUME, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5, 7, 0.0, 0.0, 0.0, 0.0);
-                }
             } else if (player.getMainHandStack().isEmpty() && blonkBlockEntity.getAmmoCount() > 0) {  // Blonk Shoot
                 Vec3d firingPosition = pos.toCenterPos().offset(state.get(FACING), 0.5);
                 Vec3i firingVelocity = state.get(FACING).getVector();
@@ -89,6 +94,8 @@ public class BlonkBlock extends BlockWithEntity {
                 world.spawnEntity(new ItemEntity(world, pos.toCenterPos().getX(), pos.toCenterPos().getY() + 0.6, pos.toCenterPos().getZ(), new ItemStack(ModItems.CASING)));
 
                 blonkBlockEntity.decrementAmmo();
+            } else {
+                world.playSound(null, pos, ModSounds.BLONK_LOAD_FAIL, SoundCategory.BLOCKS, 2.0F, 1.0f);
             }
 
             blonkBlockEntity.markDirty();

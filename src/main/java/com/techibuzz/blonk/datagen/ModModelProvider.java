@@ -24,10 +24,8 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.CASING, Models.GENERATED);
         itemModelGenerator.register(ModItems.EXPLOSIVE_MIX, Models.GENERATED);
         itemModelGenerator.register(ModItems.GUN_BARREL, Models.GENERATED);
-        itemModelGenerator.register(ModItems.LOADING_MECHANISM, Models.GENERATED);
         itemModelGenerator.register(ModItems.METAL_ALLOY, Models.GENERATED);
         itemModelGenerator.register(ModItems.SCRAP, Models.GENERATED);
         itemModelGenerator.register(ModItems.SHELL, Models.GENERATED);
-        itemModelGenerator.register(ModItems.TRACK, Models.GENERATED);
     }
 }

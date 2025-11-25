@@ -4,6 +4,7 @@ import com.techibuzz.blonk.block.ModBlocks;
 import com.techibuzz.blonk.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.recipe.RecipeExporter;
 import net.minecraft.data.recipe.RecipeGenerator;
 import net.minecraft.item.Item;
@@ -104,21 +105,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                     .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
                     .offerTo(exporter);
 
-                // LOADING MECHANISM
-                createShaped(RecipeCategory.COMBAT, ModItems.LOADING_MECHANISM)
-                        .pattern("   ")
-                        .pattern(" PR")
-                        .pattern("ICI")
-                        .input('P', Items.PISTON)
-                        .input('R', Items.REPEATER)
-                        .input('I', Items.IRON_INGOT)
-                        .input('C', Items.COMPARATOR)
-                        .criterion(hasItem(Items.PISTON), conditionsFromItem(Items.PISTON))
-                        .criterion(hasItem(Items.REPEATER), conditionsFromItem(Items.REPEATER))
-                        .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
-                        .criterion(hasItem(Items.COMPARATOR), conditionsFromItem(Items.COMPARATOR))
-                        .offerTo(exporter);
-
                 // SHELL
                 createShapeless(RecipeCategory.COMBAT, ModItems.SHELL)
                         .input(ModItems.CASING)
@@ -127,27 +113,16 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(ModItems.EXPLOSIVE_MIX), conditionsFromItem(ModItems.EXPLOSIVE_MIX))
                         .offerTo(exporter);
 
-                // TRACK
-                createShaped(RecipeCategory.COMBAT, ModItems.TRACK)
-                        .pattern("   ")
-                        .pattern("CCC")
-                        .pattern("III")
-                        .input('C', Items.COPPER_INGOT)
-                        .input('I', Items.IRON_INGOT)
-                        .criterion(hasItem(Items.COPPER_INGOT), conditionsFromItem(Items.COPPER_INGOT))
-                        .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
-                        .offerTo(exporter);
-
                 // BLONK
                 createShaped(RecipeCategory.COMBAT, ModBlocks.BLONK)
                         .pattern("MMM")
-                        .pattern("GLN")
-                        .pattern("TTT")
+                        .pattern("GPN")
+                        .pattern("KKK")
                         .input('M', ModItems.METAL_ALLOY)
                         .input('G', ModItems.GUN_BARREL)
-                        .input('L', ModItems.LOADING_MECHANISM)
+                        .input('P', Blocks.PISTON)
                         .input('N', Items.NETHERITE_SCRAP)
-                        .input('T', ModItems.TRACK)
+                        .input('K', Blocks.DRIED_KELP_BLOCK)
                         .criterion(hasItem(ModItems.METAL_ALLOY), conditionsFromItem(ModItems.METAL_ALLOY))
                         .criterion(hasItem(ModItems.GUN_BARREL), conditionsFromItem(ModItems.GUN_BARREL))
                         .criterion(hasItem(Items.NETHERITE_SCRAP), conditionsFromItem(Items.NETHERITE_SCRAP))

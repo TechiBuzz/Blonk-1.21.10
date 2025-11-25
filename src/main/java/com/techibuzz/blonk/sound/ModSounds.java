@@ -8,6 +8,7 @@ import net.minecraft.util.Identifier;
 
 public class ModSounds {
     public static final SoundEvent BLONK_LOAD = registerSound("blonk_load");
+    public static final SoundEvent BLONK_LOAD_FAIL = registerSound("blonk_load_fail");
     public static final SoundEvent BLONK_SHOOT = registerSound("blonk_shoot");
 
     private static SoundEvent registerSound(String name) {

@@ -2,13 +2,25 @@
   "blonk_load": {
     "subtitle": "sounds.blonk.blonk_load",
     "sounds": [
-      "blonk:blonk_load"
+      "blonk:blonk_load_1",
+      "blonk:blonk_load_2",
+      "blonk:blonk_load_3"
+    ]
+  },
+  "blonk_load_fail": {
+    "subtitle": "sounds.blonk.blonk_load_fail",
+    "sounds": [
+      "blonk:blonk_load_fail"
     ]
   },
   "blonk_shoot": {
     "subtitle": "sounds.blonk.blonk_shoot",
     "sounds": [
-      "blonk:blonk_shoot"
+      "blonk:blonk_shoot_1",
+      "blonk:blonk_shoot_2",
+      "blonk:blonk_shoot_3",
+      "blonk:blonk_shoot_4",
+      "blonk:blonk_shoot_5"
     ]
   }
 }

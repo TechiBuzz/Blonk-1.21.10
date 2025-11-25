@@ -34,14 +34,12 @@ public class Blonk implements ModInitializer {
         ModSounds.registerModSounds();
 
         // Scrap trade to max level armorer
-        TradeOfferHelper.registerVillagerOffers(VillagerProfession.ARMORER, 5, factories -> {
-            factories.add((entity, random) -> new TradeOffer(
-                    new TradedItem(Items.EMERALD, 24),
-                    new ItemStack(ModItems.SCRAP),
-                    3,
-                    14,
-                    0.15f
-            ));
-        });
+        TradeOfferHelper.registerVillagerOffers(VillagerProfession.ARMORER, 5, factories -> factories.add((entity, random) -> new TradeOffer(
+                new TradedItem(Items.EMERALD, 24),
+                new ItemStack(ModItems.SCRAP),
+                3,
+                14,
+                0.15f
+        )));
     }
 }
