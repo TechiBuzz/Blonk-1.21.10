@@ -3,15 +3,15 @@
   "category": "equipment",
   "key": {
     "G": "blonk:gun_barrel",
-    "L": "blonk:loading_mechanism",
+    "K": "minecraft:dried_kelp_block",
     "M": "blonk:metal_alloy",
     "N": "minecraft:netherite_scrap",
-    "T": "blonk:track"
+    "P": "minecraft:piston"
   },
   "pattern": [
     "MMM",
-    "GLN",
-    "TTT"
+    "GPN",
+    "KKK"
   ],
   "result": {
     "count": 1,

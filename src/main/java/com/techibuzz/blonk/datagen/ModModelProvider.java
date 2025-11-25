@@ -4,10 +4,10 @@ import com.techibuzz.blonk.block.ModBlocks;
 import com.techibuzz.blonk.item.ModItems;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.client.data.BlockStateModelGenerator;
-import net.minecraft.client.data.ItemModelGenerator;
-import net.minecraft.client.data.Models;
-import net.minecraft.client.data.TexturedModel;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.TexturedModel;
 
 public class ModModelProvider extends FabricModelProvider {
     public ModModelProvider(FabricDataOutput output) {
@@ -15,17 +15,17 @@ public class ModModelProvider extends FabricModelProvider {
     }
 
     @Override
-    public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-        blockStateModelGenerator.registerSingleton(ModBlocks.AMMO_RACK, TexturedModel.CUBE_BOTTOM_TOP);
+    public void generateBlockStateModels(BlockModelGenerators blockStateModelGenerator) {
+        blockStateModelGenerator.createTrivialBlock(ModBlocks.AMMO_RACK, TexturedModel.CUBE_TOP_BOTTOM);
     }
 
     @Override
-    public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-        itemModelGenerator.register(ModItems.CASING, Models.GENERATED);
-        itemModelGenerator.register(ModItems.EXPLOSIVE_MIX, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GUN_BARREL, Models.GENERATED);
-        itemModelGenerator.register(ModItems.METAL_ALLOY, Models.GENERATED);
-        itemModelGenerator.register(ModItems.SCRAP, Models.GENERATED);
-        itemModelGenerator.register(ModItems.SHELL, Models.GENERATED);
+    public void generateItemModels(ItemModelGenerators itemModelGenerator) {
+        itemModelGenerator.generateFlatItem(ModItems.CASING, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.EXPLOSIVE_MIX, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GUN_BARREL, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.METAL_ALLOY, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SCRAP, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SHELL, ModelTemplates.FLAT_ITEM);
     }
 }

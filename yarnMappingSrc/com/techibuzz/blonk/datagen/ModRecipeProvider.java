@@ -1,0 +1,155 @@
+package com.techibuzz.blonk.datagen;
+
+import com.techibuzz.blonk.block.ModBlocks;
+import com.techibuzz.blonk.item.ModItems;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.block.Blocks;
+import net.minecraft.data.recipe.RecipeExporter;
+import net.minecraft.data.recipe.RecipeGenerator;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
+import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.RegistryWrapper;
+
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
+public class ModRecipeProvider extends FabricRecipeProvider {
+    public ModRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+        super(output, registriesFuture);
+    }
+
+    private static final List<Item> dyeList = List.of(
+            Items.BLACK_DYE,
+            Items.BLUE_DYE,
+            Items.BROWN_DYE,
+            Items.CYAN_DYE,
+            Items.GRAY_DYE,
+            Items.GREEN_DYE,
+            Items.LIGHT_BLUE_DYE,
+            Items.LIGHT_GRAY_DYE,
+            Items.LIME_DYE,
+            Items.MAGENTA_DYE,
+            Items.ORANGE_DYE,
+            Items.PINK_DYE,
+            Items.PURPLE_DYE,
+            Items.RED_DYE,
+            Items.YELLOW_DYE,
+            Items.WHITE_DYE
+    );
+
+    private static final List<Item> blonkList = List.of(
+            ModBlocks.BLACK_BLONK.asItem(),
+            ModBlocks.BLUE_BLONK.asItem(),
+            ModBlocks.BROWN_BLONK.asItem(),
+            ModBlocks.CYAN_BLONK.asItem(),
+            ModBlocks.GRAY_BLONK.asItem(),
+            ModBlocks.GREEN_BLONK.asItem(),
+            ModBlocks.LIGHT_BLUE_BLONK.asItem(),
+            ModBlocks.LIGHT_GRAY_BLONK.asItem(),
+            ModBlocks.LIME_BLONK.asItem(),
+            ModBlocks.MAGENTA_BLONK.asItem(),
+            ModBlocks.ORANGE_BLONK.asItem(),
+            ModBlocks.PINK_BLONK.asItem(),
+            ModBlocks.PURPLE_BLONK.asItem(),
+            ModBlocks.RED_BLONK.asItem(),
+            ModBlocks.WHITE_BLONK.asItem(),
+            ModBlocks.YELLOW_BLONK.asItem()
+    );
+
+    @Override
+    protected RecipeGenerator getRecipeGenerator(RegistryWrapper.WrapperLookup registryLookup, RecipeExporter exporter) {
+        return new RecipeGenerator(registryLookup, exporter) {
+            @Override
+            public void generate() {
+                // AMMO RACK
+                createShaped(RecipeCategory.COMBAT, ModBlocks.AMMO_RACK)
+                        .pattern("SSS")
+                        .pattern("SCS")
+                        .pattern("SSS")
+                        .input('S', ModItems.SHELL)
+                        .input('C', Items.IRON_CHAIN)
+                        .criterion(hasItem(ModItems.SHELL), conditionsFromItem(ModItems.SHELL))
+                        .criterion(hasItem(Items.IRON_CHAIN), conditionsFromItem(Items.IRON_CHAIN))
+                        .offerTo(exporter);
+
+                // CASING
+                createShaped(RecipeCategory.COMBAT, ModItems.CASING)
+                        .pattern("G  ")
+                        .pattern("G  ")
+                        .pattern("   ")
+                        .input('G', Items.GOLD_NUGGET)
+                        .criterion(hasItem(Items.GOLD_NUGGET), conditionsFromItem(Items.GOLD_NUGGET))
+                        .offerTo(exporter);
+
+                // EXPLOSIVE MIX
+                createShaped(RecipeCategory.COMBAT, ModItems.EXPLOSIVE_MIX, 4)
+                        .pattern("BG ")
+                        .pattern("GB ")
+                        .pattern("   ")
+                        .input('B', Items.BONE_MEAL)
+                        .input('G', Items.GUNPOWDER)
+                        .criterion(hasItem(Items.BONE_MEAL), conditionsFromItem(Items.BONE_MEAL))
+                        .criterion(hasItem(Items.GUNPOWDER), conditionsFromItem(Items.GUNPOWDER))
+                        .offerTo(exporter);
+
+                // GUN BARREL
+                createShaped(RecipeCategory.COMBAT, ModItems.GUN_BARREL)
+                    .pattern("IIA")
+                    .pattern("   ")
+                    .pattern("IIA")
+                    .input('I', Items.IRON_INGOT)
+                    .input('A', ModItems.METAL_ALLOY)
+                    .criterion(hasItem(ModItems.METAL_ALLOY), conditionsFromItem(ModItems.METAL_ALLOY))
+                    .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
+                    .offerTo(exporter);
+
+                // SHELL
+                createShapeless(RecipeCategory.COMBAT, ModItems.SHELL)
+                        .input(ModItems.CASING)
+                        .input(ModItems.EXPLOSIVE_MIX)
+                        .criterion(hasItem(ModItems.CASING), conditionsFromItem(ModItems.CASING))
+                        .criterion(hasItem(ModItems.EXPLOSIVE_MIX), conditionsFromItem(ModItems.EXPLOSIVE_MIX))
+                        .offerTo(exporter);
+
+                // BLONK
+                createShaped(RecipeCategory.COMBAT, ModBlocks.BLONK)
+                        .pattern("MMM")
+                        .pattern("GPN")
+                        .pattern("KKK")
+                        .input('M', ModItems.METAL_ALLOY)
+                        .input('G', ModItems.GUN_BARREL)
+                        .input('P', Blocks.PISTON)
+                        .input('N', Items.NETHERITE_SCRAP)
+                        .input('K', Blocks.DRIED_KELP_BLOCK)
+                        .criterion(hasItem(ModItems.METAL_ALLOY), conditionsFromItem(ModItems.METAL_ALLOY))
+                        .criterion(hasItem(ModItems.GUN_BARREL), conditionsFromItem(ModItems.GUN_BARREL))
+                        .criterion(hasItem(Items.NETHERITE_SCRAP), conditionsFromItem(Items.NETHERITE_SCRAP))
+                        .offerTo(exporter);
+
+                // DYE-ABLE BLONKS
+                offerDyeablesRecipes(
+                        dyeList,
+                        blonkList,
+                        ModBlocks.BLONK.asItem(),
+                        "blonk",
+                        RecipeCategory.COMBAT
+                );
+
+                // SCRAP -> METAL ALLOY SMELT
+                offerBlasting(List.of(ModItems.SCRAP), RecipeCategory.COMBAT, ModItems.METAL_ALLOY, 0.9F, 100, "blonk:metal_alloy");
+                offerSmelting(List.of(ModItems.SCRAP), RecipeCategory.COMBAT, ModItems.METAL_ALLOY, 0.9F, 200, "blonk:metal_alloy");
+
+                // CASING -> GOLD NUGGET SMELT
+                offerBlasting(List.of(ModItems.CASING), RecipeCategory.COMBAT, Items.GOLD_NUGGET, 0.1F, 100, "blonk:casing");
+                offerSmelting(List.of(ModItems.CASING), RecipeCategory.COMBAT, Items.GOLD_NUGGET, 0.1F, 200, "blonk:casing");
+            }
+        };
+    }
+
+    @Override
+    public String getName() {
+        return "BlonkModRecipeGenerator";
+    }
+}

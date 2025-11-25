@@ -3,29 +3,30 @@ package com.techibuzz.blonk.item.custom;
 import com.techibuzz.blonk.entity.ModEntities;
 import com.techibuzz.blonk.entity.custom.ShellEntity;
 import com.techibuzz.blonk.item.ModItems;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 public class ShellTestingItem extends Item {
-    public ShellTestingItem(Settings settings) {
+    public ShellTestingItem(Properties settings) {
         super(settings);
     }
 
     @Override
-    public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        if (!world.isClient()) {
+    public @NotNull InteractionResult use(Level world, Player user, InteractionHand hand) {
+        if (!world.isClientSide()) {
             ShellEntity shellEntity = new ShellEntity(ModEntities.SHELL, world);
-            shellEntity.setPosition(user.getEyePos());
+            shellEntity.setPos(user.getEyePosition());
 
-            ProjectileEntity.spawnWithVelocity(
+            Projectile.spawnProjectileFromRotation(
                     (world1, shooter, stack) -> shellEntity,
-                    (ServerWorld) world,
+                    (ServerLevel) world,
                     new ItemStack(ModItems.SHELL_TESTING_ITEM),
                     user,
                     0.0F,
@@ -33,6 +34,6 @@ public class ShellTestingItem extends Item {
                     0.0F
             );
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 }

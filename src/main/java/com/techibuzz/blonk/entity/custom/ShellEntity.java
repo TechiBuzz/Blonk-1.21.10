@@ -2,47 +2,62 @@ package com.techibuzz.blonk.entity.custom;
 
 import com.techibuzz.blonk.block.ModBlocks;
 import com.techibuzz.blonk.block.entity.BlonkBlockEntity;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.projectile.ExplosiveProjectileEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class ShellEntity extends ExplosiveProjectileEntity {
+public class ShellEntity extends AbstractHurtingProjectile {
     public static Direction FACING = Direction.SOUTH;
 
-    public ShellEntity(EntityType<? extends ExplosiveProjectileEntity> entityType, World world) {
+    public ShellEntity(EntityType<? extends AbstractHurtingProjectile> entityType, Level world) {
         super(entityType, world);
     }
 
     @Override
     public void tick() {
         super.tick();
-        this.setVelocity(this.getVelocity().add(0, -0.005, 0));
+        this.setDeltaMovement(this.getDeltaMovement().add(0, -0.005, 0));
     }
 
     @Override
-    protected void onBlockHit(BlockHitResult blockHitResult) {
-        super.onBlockHit(blockHitResult);
+    protected void onHitBlock(BlockHitResult blockHitResult) {
+        super.onHitBlock(blockHitResult);
 
-        World world = this.getEntityWorld();
+        Level world = this.level();
         BlockPos pos = blockHitResult.getBlockPos();
 
-        if (!world.isClient()) {
+        if (!world.isClientSide()) {
+            // Mega explosion if shell directly hits a blonk
             if (world.getBlockEntity(pos) instanceof BlonkBlockEntity) {
-                world.setBlockState(pos, Blocks.AIR.getDefaultState());
-                world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModBlocks.BROKEN_BLONK.asItem())));
+                world.explode(this, this.getX(), this.getY(), this.getZ(), 7.0F, true, Level.ExplosionInteraction.TNT);
 
-                this.getEntityWorld().createExplosion(this, this.getX(), this.getY(), this.getZ(), 6.0F, true, World.ExplosionSourceType.BLOCK);
+                world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                world.addFreshEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModBlocks.BROKEN_BLONK.asItem())));
             } else {
-                this.getEntityWorld().createExplosion(this, this.getX(), this.getY(), this.getZ(), 3.0F, false, World.ExplosionSourceType.BLOCK);
+                this.level().explode(this, this.getX(), this.getY(), this.getZ(), 3.5F, false, Level.ExplosionInteraction.TNT);
+            }
+
+            // Replace any blonks with the broken one if in a 3x3 region around explosion
+            for (BlockPos blockPos : BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1))) {
+                if (world.getBlockEntity(blockPos) instanceof BlonkBlockEntity) {
+                    world.setBlockAndUpdate(blockPos, ModBlocks.BROKEN_BLONK.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, world.getBlockState(blockPos).getValue(BlockStateProperties.HORIZONTAL_FACING)));
+                    world.playSound(null, blockPos, SoundEvents.CREAKING_DEATH, SoundSource.BLOCKS);
+
+                    world.gameEvent(this, GameEvent.BLOCK_CHANGE, blockPos);
+                }
             }
         }
 
@@ -55,12 +70,12 @@ public class ShellEntity extends ExplosiveProjectileEntity {
     }
 
     @Override
-    public boolean isCollidable(@Nullable Entity entity) {
+    public boolean canBeCollidedWith(@Nullable Entity entity) {
         return false;
     }
 
     @Override
-    protected void initDataTracker(DataTracker.Builder builder) {
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
 
     }
 }

@@ -7,122 +7,131 @@ import com.techibuzz.blonk.entity.ModEntities;
 import com.techibuzz.blonk.entity.custom.ShellEntity;
 import com.techibuzz.blonk.item.ModItems;
 import com.techibuzz.blonk.sound.ModSounds;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.stat.Stats;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class BlonkBlock extends BlockWithEntity {
-    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
+import java.util.function.BiConsumer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Vec3i;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 
-    public BlonkBlock(Settings settings) {
+public class BlonkBlock extends BaseEntityBlock {
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
+
+    public BlonkBlock(Properties settings) {
         super(settings);
     }
 
     @Override
-    protected ActionResult onUseWithItem(ItemStack itemStack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected @NotNull InteractionResult useItemOn(ItemStack itemStack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (!(world.getBlockEntity(pos) instanceof BlonkBlockEntity blonkBlockEntity)) {
-            return super.onUseWithItem(itemStack, state, world, pos, player, hand, hit);
+            return super.useItemOn(itemStack, state, world, pos, player, hand, hit);
         }
 
-        if (!world.isClient()) {
+        if (!world.isClientSide()) {
             // Ammo Rack Loading
-            if (itemStack.isOf(ModBlocks.AMMO_RACK.asItem())) {
+            if (itemStack.is(ModBlocks.AMMO_RACK.asItem())) {
                 if ((blonkBlockEntity.getAmmoCount() + 8) <= 64) {
-                    player.incrementStat(Stats.USED.getOrCreateStat(itemStack.getItem()));
+                    player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()));
 
-                    ItemStack freshItemStack = itemStack.splitUnlessCreative(1, player);
+                    ItemStack freshItemStack = itemStack.consumeAndReturn(1, player);
                     float freshStackCount;
                     if (blonkBlockEntity.getAmmoCount() == 0) {
-                        freshStackCount = (float) freshItemStack.getCount() / freshItemStack.getMaxCount();
+                        freshStackCount = (float) freshItemStack.getCount() / freshItemStack.getMaxStackSize();
                     } else {
                         freshStackCount = (float) blonkBlockEntity.getAmmoCount() / blonkBlockEntity.getMaxAmmoCount();
                     }
                     blonkBlockEntity.incrementAmmo();
 
-                    world.playSound(null, pos, ModSounds.BLONK_LOAD, SoundCategory.BLOCKS, 1.0F, 0.7F + 0.5F * freshStackCount);
-                    if (world instanceof ServerWorld serverWorld) {
-                        serverWorld.spawnParticles(ParticleTypes.DUST_PLUME, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5, 7, 0.0, 0.0, 0.0, 0.0);
+                    world.playSound(null, pos, ModSounds.BLONK_LOAD, SoundSource.BLOCKS, 1.0F, 0.7F + 0.5F * freshStackCount);
+                    if (world instanceof ServerLevel serverWorld) {
+                        serverWorld.sendParticles(ParticleTypes.DUST_PLUME, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5, 7, 0.0, 0.0, 0.0, 0.0);
                     }
                 } else {
-                    world.playSound(null, pos, ModSounds.BLONK_LOAD_FAIL, SoundCategory.BLOCKS, 2.0F, 1.0f);
+                    world.playSound(null, pos, ModSounds.BLONK_LOAD_FAIL, SoundSource.BLOCKS, 2.0F, 1.0f);
                 }
 
-            } else if (player.getMainHandStack().isEmpty() && blonkBlockEntity.getAmmoCount() > 0) {  // Blonk Shoot
-                Vec3d firingPosition = pos.toCenterPos().offset(state.get(FACING), 0.5);
-                Vec3i firingVelocity = state.get(FACING).getVector();
+            } else if (player.getMainHandItem().isEmpty() && blonkBlockEntity.getAmmoCount() > 0) {  // Blonk Shoot
+                Vec3 firingPosition = pos.getCenter().relative(state.getValue(FACING), 0.5);
+                Vec3i firingVelocity = state.getValue(FACING).getUnitVec3i();
 
                 ShellEntity shellEntity = new ShellEntity(ModEntities.SHELL, world);
-                ShellEntity.FACING = state.get(FACING);
-                shellEntity.setPosition(firingPosition);
+                ShellEntity.FACING = state.getValue(FACING);
+                shellEntity.setPos(firingPosition);
 
-                ProjectileEntity.spawnWithVelocity(
+                Projectile.spawnProjectileUsingShoot(
                         (world1, shooter, stack) -> shellEntity,
-                        (ServerWorld) world,
-                        this.asItem().getDefaultStack(),
+                        (ServerLevel) world,
+                        this.asItem().getDefaultInstance(),
                         player,
                         firingVelocity.getX(),
                         firingVelocity.getY(),
                         firingVelocity.getZ(),
                         blonkBlockEntity.getFiringPower(),
-                        3.5f
+                        3.0f
                 );
-                world.playSound(null, pos, ModSounds.BLONK_SHOOT, SoundCategory.BLOCKS, 2.0F, 1.0f);
-                world.spawnEntity(new ItemEntity(world, pos.toCenterPos().getX(), pos.toCenterPos().getY() + 0.6, pos.toCenterPos().getZ(), new ItemStack(ModItems.CASING)));
+                world.playSound(null, pos, ModSounds.BLONK_SHOOT, SoundSource.BLOCKS, 2.0F, 1.0f);
+                world.addFreshEntity(new ItemEntity(world, pos.getCenter().x(), pos.getCenter().y() + 0.6, pos.getCenter().z(), new ItemStack(ModItems.CASING)));
 
                 blonkBlockEntity.decrementAmmo();
             } else {
-                world.playSound(null, pos, ModSounds.BLONK_LOAD_FAIL, SoundCategory.BLOCKS, 2.0F, 1.0f);
+                world.playSound(null, pos, ModSounds.BLONK_LOAD_FAIL, SoundSource.BLOCKS, 2.0F, 1.0f);
             }
 
-            blonkBlockEntity.markDirty();
-            world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+            blonkBlockEntity.setChanged();
+            world.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
         }
 
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    protected void onExplosionHit(BlockState state, ServerLevel world, BlockPos pos, Explosion explosion, BiConsumer<ItemStack, BlockPos> stackMerger) {
+        super.onExplosionHit(state, world, pos, explosion, stackMerger);
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new BlonkBlockEntity(pos, state);
     }
 
     @Override
-    public @Nullable BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing());
+    public @Nullable BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection());
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }
 
     @Override
-    public MapCodec<? extends BlockWithEntity> getCodec() {
-        return createCodec(BlonkBlock::new);
+    public MapCodec<? extends BaseEntityBlock> codec() {
+        return simpleCodec(BlonkBlock::new);
     }
 
     @Override

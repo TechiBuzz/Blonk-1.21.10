@@ -11,16 +11,6 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_loading_mechanism": {
-      "conditions": {
-        "items": [
-          {
-            "items": "blonk:loading_mechanism"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "has_metal_alloy": {
       "conditions": {
         "items": [
@@ -46,16 +36,6 @@
         "recipe": "blonk:blonk"
       },
       "trigger": "minecraft:recipe_unlocked"
-    },
-    "has_track": {
-      "conditions": {
-        "items": [
-          {
-            "items": "blonk:track"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
     }
   },
   "requirements": [
@@ -63,9 +43,7 @@
       "has_the_recipe",
       "has_metal_alloy",
       "has_gun_barrel",
-      "has_netherite_scrap",
-      "has_loading_mechanism",
-      "has_track"
+      "has_netherite_scrap"
     ]
   ],
   "rewards": {

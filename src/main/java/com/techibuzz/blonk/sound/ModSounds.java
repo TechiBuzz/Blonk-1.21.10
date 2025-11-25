@@ -1,10 +1,10 @@
 package com.techibuzz.blonk.sound;
 
 import com.techibuzz.blonk.Blonk;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 
 public class ModSounds {
     public static final SoundEvent BLONK_LOAD = registerSound("blonk_load");
@@ -12,8 +12,8 @@ public class ModSounds {
     public static final SoundEvent BLONK_SHOOT = registerSound("blonk_shoot");
 
     private static SoundEvent registerSound(String name) {
-        Identifier id = Identifier.of(Blonk.MOD_ID, name);
-        return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, name);
+        return Registry.register(BuiltInRegistries.SOUND_EVENT, id, SoundEvent.createVariableRangeEvent(id));
     }
 
     public static void registerModSounds() {
