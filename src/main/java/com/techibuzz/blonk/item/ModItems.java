@@ -62,6 +62,6 @@ public class ModItems {
     }
 
     public static void registerModItems() {
-        Blonk.LOGGER.info("Registering mod items for - " + Blonk.MOD_ID);
+        Blonk.LOGGER.info("Registering Items for - " + Blonk.MOD_ID);
     }
 }

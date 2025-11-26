@@ -53,7 +53,7 @@ public class ModItemGroups {
             .build();
 
     public static void registerModItemGroups() {
-        Blonk.LOGGER.info("Registering mod item groups for - " + Blonk.MOD_ID);
+        Blonk.LOGGER.info("Registering Item Groups for - " + Blonk.MOD_ID);
 
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, BLONK_ITEM_GROUP_KEY, BLONK_ITEM_GROUP);
     }

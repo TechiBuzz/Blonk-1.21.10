@@ -265,6 +265,6 @@ public class ModBlocks {
     }
 
     public static void registerModBlocks() {
-        Blonk.LOGGER.info("Registering mod blocks for - " + Blonk.MOD_ID);
+        Blonk.LOGGER.info("Registering Blocks for - " + Blonk.MOD_ID);
     }
 }

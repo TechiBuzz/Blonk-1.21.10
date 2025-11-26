@@ -7,10 +7,14 @@ import com.techibuzz.blonk.entity.ModEntities;
 import com.techibuzz.blonk.entity.custom.ShellEntity;
 import com.techibuzz.blonk.item.ModItems;
 import com.techibuzz.blonk.sound.ModSounds;
-import net.minecraft.client.gui.components.ChatComponent;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.redstone.Orientation;
 import org.jetbrains.annotations.NotNull;
@@ -59,14 +63,23 @@ public class BlonkBlock extends BaseEntityBlock {
     }
 
     @Override
+    protected @NotNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        if ((level.getBlockEntity(pos) instanceof BlonkBlockEntity blonkBlockEntity) && player.isShiftKeyDown()) {
+            player.openMenu(blonkBlockEntity);
+        }
+        return super.useWithoutItem(state, level, pos, player, hitResult);
+    }
+
+    @Override
     protected @NotNull InteractionResult useItemOn(ItemStack itemStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (!(level.getBlockEntity(pos) instanceof BlonkBlockEntity blonkBlockEntity)) {
             return super.useItemOn(itemStack, state, level, pos, player, hand, hit);
         }
 
         if (!level.isClientSide()) {
-            if (itemStack.isEmpty()) { // Shoot Shell
-                shootShell(state, pos, level, player);
+            if (itemStack.isEmpty()) {
+                if (player.isShiftKeyDown()) player.openMenu(blonkBlockEntity);
+                else shootShell(state, pos, level, player);
             } else if (itemStack.is(ModBlocks.AMMO_RACK.asItem()) && (blonkBlockEntity.getAmmoCount() + 8) <= 64) { // Load Blonk
                 player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()));
 
@@ -129,12 +142,12 @@ public class BlonkBlock extends BaseEntityBlock {
 
     @Override
     protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, @Nullable Orientation orientation, boolean movedByPiston) {
-        boolean bl = level.hasNeighborSignal(pos) || level.hasNeighborSignal(pos.above());
-        boolean bl2 = state.getValue(TRIGGERED);
-        if (bl && !bl2) {
+        boolean redstoneNearby = level.hasNeighborSignal(pos) || level.hasNeighborSignal(pos.above());
+        boolean isTriggered = state.getValue(TRIGGERED);
+        if (redstoneNearby && !isTriggered) {
             level.scheduleTick(pos, this, 4);
             level.setBlock(pos, state.setValue(TRIGGERED, true), 2);
-        } else if (!bl && bl2) {
+        } else if (!redstoneNearby && isTriggered) {
             level.setBlock(pos, state.setValue(TRIGGERED, false), 2);
         }
     }
@@ -142,6 +155,16 @@ public class BlonkBlock extends BaseEntityBlock {
     @Override
     protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
         Containers.updateNeighboursAfterDestroy(state, level, pos);
+    }
+
+    @Override
+    protected boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
+    }
+
+    @Override
+    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction direction) {
+        return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(level.getBlockEntity(pos));
     }
 
     @Override
@@ -168,4 +191,5 @@ public class BlonkBlock extends BaseEntityBlock {
     public @NotNull Item asItem() {
         return super.asItem();
     }
+
 }

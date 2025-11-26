@@ -17,6 +17,6 @@ public class ModSounds {
     }
 
     public static void registerModSounds() {
-        Blonk.LOGGER.info("Registering mod sounds for - " + Blonk.MOD_ID);
+        Blonk.LOGGER.info("Registering Sounds for - " + Blonk.MOD_ID);
     }
 }

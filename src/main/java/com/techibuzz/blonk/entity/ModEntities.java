@@ -24,6 +24,6 @@ public class ModEntities {
     );
 
     public static void registerModEntities() {
-        Blonk.LOGGER.info("Registering mod entities for - " + Blonk.MOD_ID);
+        Blonk.LOGGER.info("Registering Entities for - " + Blonk.MOD_ID);
     }
 }
