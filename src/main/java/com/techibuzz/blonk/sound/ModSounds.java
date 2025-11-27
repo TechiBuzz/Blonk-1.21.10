@@ -10,6 +10,7 @@ public class ModSounds {
     public static final SoundEvent BLONK_LOAD = registerSound("blonk_load");
     public static final SoundEvent BLONK_LOAD_FAIL = registerSound("blonk_load_fail");
     public static final SoundEvent BLONK_SHOOT = registerSound("blonk_shoot");
+    public static final SoundEvent BLONK_REPAIR = registerSound("blonk_repair");
 
     private static SoundEvent registerSound(String name) {
         ResourceLocation id = ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, name);
@@ -17,6 +18,6 @@ public class ModSounds {
     }
 
     public static void registerModSounds() {
-        Blonk.LOGGER.info("Registering mod sounds for - " + Blonk.MOD_ID);
+        Blonk.LOGGER.info("Registering Sounds for - " + Blonk.MOD_ID);
     }
 }

@@ -30,6 +30,7 @@ public class ModItemGroups {
                 entries.accept(ModBlocks.AMMO_RACK);
 
                 entries.accept(ModBlocks.BLONK);
+                entries.accept(ModBlocks.BROKEN_BLONK);
 
                 entries.accept(ModBlocks.WHITE_BLONK);
                 entries.accept(ModBlocks.GRAY_BLONK);
@@ -47,13 +48,11 @@ public class ModItemGroups {
                 entries.accept(ModBlocks.PURPLE_BLONK);
                 entries.accept(ModBlocks.MAGENTA_BLONK);
                 entries.accept(ModBlocks.PINK_BLONK);
-
-                entries.accept(ModBlocks.BROKEN_BLONK);
             })
             .build();
 
     public static void registerModItemGroups() {
-        Blonk.LOGGER.info("Registering mod item groups for - " + Blonk.MOD_ID);
+        Blonk.LOGGER.info("Registering Item Groups for - " + Blonk.MOD_ID);
 
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, BLONK_ITEM_GROUP_KEY, BLONK_ITEM_GROUP);
     }

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "group": "shell",
+  "ingredients": [
+    "blonk:ammo_rack"
+  ],
+  "result": {
+    "count": 9,
+    "id": "blonk:shell"
+  }
+}

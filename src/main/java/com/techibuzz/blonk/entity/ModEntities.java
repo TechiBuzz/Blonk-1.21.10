@@ -18,12 +18,12 @@ public class ModEntities {
 
     public static final EntityType<ShellEntity> SHELL = Registry.register(
             BuiltInRegistries.ENTITY_TYPE, SHELL_KEY,
-            EntityType.Builder.of(ShellEntity::new, MobCategory.MISC)
+            EntityType.Builder.<ShellEntity>of(ShellEntity::new, MobCategory.MISC)
                     .sized(4/16F, 4/16F)
                     .build(SHELL_KEY)
     );
 
     public static void registerModEntities() {
-        Blonk.LOGGER.info("Registering mod entities for - " + Blonk.MOD_ID);
+        Blonk.LOGGER.info("Registering Entities for - " + Blonk.MOD_ID);
     }
 }

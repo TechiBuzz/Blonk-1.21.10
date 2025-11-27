@@ -19,8 +19,8 @@ import net.minecraft.world.phys.BlockHitResult;
 public class ShellEntity extends AbstractHurtingProjectile {
     public static Direction FACING = Direction.SOUTH;
 
-    public ShellEntity(EntityType<? extends AbstractHurtingProjectile> entityType, Level world) {
-        super(entityType, world);
+    public ShellEntity(EntityType<? extends AbstractHurtingProjectile> entityType, Level level) {
+        super(entityType, level);
     }
 
     @Override

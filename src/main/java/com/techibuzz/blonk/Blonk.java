@@ -5,6 +5,7 @@ import com.techibuzz.blonk.block.ModBlocks;
 import com.techibuzz.blonk.entity.ModEntities;
 import com.techibuzz.blonk.item.ModItemGroups;
 import com.techibuzz.blonk.item.ModItems;
+import com.techibuzz.blonk.screen.ModScreens;
 import com.techibuzz.blonk.sound.ModSounds;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
@@ -23,14 +24,11 @@ public class Blonk implements ModInitializer {
     @Override
     public void onInitialize() {
         ModItems.registerModItems();
-
         ModBlocks.registerModBlocks();
-        ModBlockEntities.registerModBlockEntities();
-
         ModEntities.registerModEntities();
-
         ModItemGroups.registerModItemGroups();
-
+        ModBlockEntities.registerModBlockEntities();
+        ModScreens.registerModScreens();
         ModSounds.registerModSounds();
 
         // Scrap trade to max level armorer

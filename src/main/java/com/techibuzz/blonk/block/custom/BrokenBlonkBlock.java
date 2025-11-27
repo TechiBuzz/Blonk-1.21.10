@@ -3,11 +3,11 @@ package com.techibuzz.blonk.block.custom;
 import com.mojang.serialization.MapCodec;
 import com.techibuzz.blonk.block.ModBlocks;
 import com.techibuzz.blonk.item.ModItems;
+import com.techibuzz.blonk.sound.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
@@ -42,12 +42,12 @@ public class BrokenBlonkBlock extends HorizontalDirectionalBlock {
                 stack.consume(1, player);
 
                 level.setBlockAndUpdate(pos, ModBlocks.BLONK.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, state.getValue(FACING)));
-                level.playSound(null, pos, SoundEvents.WET_SPONGE_DRIES, SoundSource.BLOCKS, 1.0f, 1.0f);
+                level.playSound(null, pos, ModSounds.BLONK_REPAIR, SoundSource.BLOCKS, 1.0f, 1.0f);
 
                 if (level instanceof ServerLevel serverLevel) {
                     RandomSource random = level.getRandom();
                     serverLevel.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, (double)pos.getX() + (double)0.5F + random.nextDouble() / (double)3.0F * (double)(random.nextBoolean() ? 1 : -1), (double)pos.getY() + random.nextDouble() + random.nextDouble(), (double)pos.getZ() + (double)0.5F + random.nextDouble() / (double)3.0F * (double)(random.nextBoolean() ? 1 : -1), 10,0.001F, 0.2d, 0.001F, 0.02F);
-                    serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, (double)pos.getX() + (double)0.5F + random.nextDouble() / (double)3.0F * (double)(random.nextBoolean() ? 1 : -1), (double)pos.getY() + random.nextDouble() + random.nextDouble(), (double)pos.getZ() + (double)0.5F + random.nextDouble() / (double)3.0F * (double)(random.nextBoolean() ? 1 : -1), 10,0.02F, 0.1d, 0.02F, 0.01F);
+                    serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, (double)pos.getX() + (double)0.5F + random.nextDouble() / (double)3.0F * (double)(random.nextBoolean() ? 1 : -1), (double)pos.getY() + random.nextDouble() + random.nextDouble(), (double)pos.getZ() + (double)0.5F + random.nextDouble() / (double)3.0F * (double)(random.nextBoolean() ? 1 : -1), 16,0.2F, 0.2d, 0.2F, 0.03F);
                 }
             }
         }

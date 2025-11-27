@@ -65,15 +65,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
             @Override
             public void buildRecipes() {
                 // AMMO RACK
-                shaped(RecipeCategory.COMBAT, ModBlocks.AMMO_RACK)
-                        .pattern("SSS")
-                        .pattern("SCS")
-                        .pattern("SSS")
-                        .define('S', ModItems.SHELL)
-                        .define('C', Items.IRON_CHAIN)
-                        .unlockedBy(getHasName(ModItems.SHELL), has(ModItems.SHELL))
-                        .unlockedBy(getHasName(Items.IRON_CHAIN), has(Items.IRON_CHAIN))
-                        .save(output);
+                nineBlockStorageRecipesRecipesWithCustomUnpacking(
+                        RecipeCategory.COMBAT, ModItems.SHELL, RecipeCategory.COMBAT, ModBlocks.AMMO_RACK, "shell_from_ammo_rack", "shell"
+                );
 
                 // CASING
                 shaped(RecipeCategory.COMBAT, ModItems.CASING)
