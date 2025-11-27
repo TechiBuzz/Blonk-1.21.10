@@ -6,7 +6,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
@@ -20,8 +19,8 @@ import net.minecraft.world.phys.BlockHitResult;
 public class ShellEntity extends AbstractHurtingProjectile {
     public static Direction FACING = Direction.SOUTH;
 
-    public ShellEntity(EntityType<? extends AbstractHurtingProjectile> entityType, Level world) {
-        super(entityType, world);
+    public ShellEntity(EntityType<? extends AbstractHurtingProjectile> entityType, Level level) {
+        super(entityType, level);
     }
 
     @Override

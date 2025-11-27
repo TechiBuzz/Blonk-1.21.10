@@ -22,5 +22,11 @@
       "blonk:blonk_shoot_4",
       "blonk:blonk_shoot_5"
     ]
+  },
+  "blonk_repair": {
+    "subtitle": "sounds.blonk.blonk_repair",
+    "sounds": [
+      "random/fizz"
+    ]
   }
 }
