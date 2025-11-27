@@ -23,7 +23,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class BlonkBlockEntity extends BaseContainerBlockEntity {
-    private int ammo;
     private float firing_power = 1.5f;
 
     private NonNullList<ItemStack> items = NonNullList.withSize(1, ItemStack.EMPTY);
@@ -33,12 +32,15 @@ public class BlonkBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
+    protected @NotNull AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
+        return new BlonkMenu(containerId, inventory, this);
+    }
+
+    @Override
     protected void saveAdditional(ValueOutput view) {
         super.saveAdditional(view);
 
-        view.putInt("ammo_count", this.ammo);
         view.putFloat("firing_power", this.firing_power);
-
         ContainerHelper.saveAllItems(view, this.items);
     }
 
@@ -46,14 +48,8 @@ public class BlonkBlockEntity extends BaseContainerBlockEntity {
     protected void loadAdditional(ValueInput view) {
         super.loadAdditional(view);
 
-        this.ammo = view.read("ammo_count", Codec.INT).orElse(0);
         this.firing_power = view.read("firing_power", Codec.FLOAT).orElse(1.5f);
-
         ContainerHelper.loadAllItems(view, this.items);
-    }
-
-    protected @NotNull Component getDefaultName() {
-        return Component.translatable("screen.blonk.blonk");
     }
 
     @Override
@@ -67,24 +63,13 @@ public class BlonkBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    protected @NotNull AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        return new BlonkMenu(containerId, inventory);
-    }
-
-    @Override
     public int getContainerSize() {
         return 1;
     }
 
-    public int getAmmoCount() { return  this.ammo; }
-
-    public void incrementAmmo() { this.ammo += 8; }
-
-    public void decrementAmmo() { this.ammo--; }
-
-    public int getMaxAmmoCount() { return 64; }
-
-    public float getFiringPower() { return firing_power; }
+    public float getFiringPower() {
+        return this.firing_power;
+    }
 
     @Override
     public @Nullable Packet<ClientGamePacketListener> getUpdatePacket() {
@@ -94,5 +79,9 @@ public class BlonkBlockEntity extends BaseContainerBlockEntity {
     @Override
     public @NotNull CompoundTag getUpdateTag(HolderLookup.Provider registries) {
         return this.saveWithoutMetadata(registries);
+    }
+
+    protected @NotNull Component getDefaultName() {
+        return Component.translatable("screen.blonk.blonk");
     }
 }

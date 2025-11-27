@@ -1,19 +1,13 @@
 package com.techibuzz.blonk.block.custom;
 
 import com.mojang.serialization.MapCodec;
-import com.techibuzz.blonk.block.ModBlocks;
 import com.techibuzz.blonk.block.entity.BlonkBlockEntity;
 import com.techibuzz.blonk.entity.ModEntities;
 import com.techibuzz.blonk.entity.custom.ShellEntity;
 import com.techibuzz.blonk.item.ModItems;
 import com.techibuzz.blonk.sound.ModSounds;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.redstone.Orientation;
@@ -64,51 +58,62 @@ public class BlonkBlock extends BaseEntityBlock {
 
     @Override
     protected @NotNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if ((level.getBlockEntity(pos) instanceof BlonkBlockEntity blonkBlockEntity) && player.isShiftKeyDown()) {
-            player.openMenu(blonkBlockEntity);
+        if ((level.getBlockEntity(pos) instanceof BlonkBlockEntity blonkBlockEntity)) {
+            if (!level.isClientSide()) {
+                if (player.isShiftKeyDown()) {
+                    player.openMenu(blonkBlockEntity);
+                } else {
+                    shootShell(state, pos, level, player);
+                }
+            }
+            return InteractionResult.SUCCESS;
+        } else {
+            return InteractionResult.PASS;
         }
-        return super.useWithoutItem(state, level, pos, player, hitResult);
     }
 
     @Override
-    protected @NotNull InteractionResult useItemOn(ItemStack itemStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (!(level.getBlockEntity(pos) instanceof BlonkBlockEntity blonkBlockEntity)) {
-            return super.useItemOn(itemStack, state, level, pos, player, hand, hit);
-        }
-
-        if (!level.isClientSide()) {
-            if (itemStack.isEmpty()) {
-                if (player.isShiftKeyDown()) player.openMenu(blonkBlockEntity);
-                else shootShell(state, pos, level, player);
-            } else if (itemStack.is(ModBlocks.AMMO_RACK.asItem()) && (blonkBlockEntity.getAmmoCount() + 8) <= 64) { // Load Blonk
-                player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()));
-
-                ItemStack freshItemStack = itemStack.consumeAndReturn(1, player);
-                float freshStackCount = blonkBlockEntity.getAmmoCount() == 0
-                        ? (float) freshItemStack.getCount() / freshItemStack.getMaxStackSize()
-                        : (float) blonkBlockEntity.getAmmoCount() / blonkBlockEntity.getMaxAmmoCount();
-
-                blonkBlockEntity.incrementAmmo();
-                blonkBlockEntity.setChanged();
-                level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-
-                level.playSound(null, pos, ModSounds.BLONK_LOAD, SoundSource.BLOCKS, 1.0F, 0.7F + 0.5F * freshStackCount);
-                if (level instanceof ServerLevel serverLevel) {
-                    serverLevel.sendParticles(ParticleTypes.DUST_PLUME, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5, 7, 0.0, 0.0, 0.0, 0.0);
-                }
+    protected @NotNull InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (level.getBlockEntity(pos) instanceof BlonkBlockEntity blonkBlockEntity) {
+            if (level.isClientSide()) {
+                return InteractionResult.SUCCESS;
             } else {
-                level.playSound(null, pos, ModSounds.BLONK_LOAD_FAIL, SoundSource.BLOCKS, 2.0F, 1.0f);
-            }
-        }
+                ItemStack itemStack = blonkBlockEntity.getItem(0);
+                if (stack.is(ModItems.SHELL) && (itemStack.isEmpty() || ItemStack.isSameItemSameComponents(itemStack, stack) && itemStack.getCount() < itemStack.getMaxStackSize())) {
+                    player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
 
-        return InteractionResult.SUCCESS;
+                    ItemStack freshItemStack = stack.consumeAndReturn(1, player);
+                    float freshStackCount;
+                    if (blonkBlockEntity.getItem(0).isEmpty()) {
+                        blonkBlockEntity.setItem(0, freshItemStack);
+                        freshStackCount = (float) freshItemStack.getCount() / freshItemStack.getMaxStackSize();
+                    } else {
+                        itemStack.grow(1);
+                        freshStackCount = (float) blonkBlockEntity.getItem(0).getCount() / blonkBlockEntity.getItem(0).getMaxStackSize();
+                    }
+
+                    level.playSound(null, pos, ModSounds.BLONK_LOAD, SoundSource.BLOCKS, 1.0F, 0.7F + 0.5F * freshStackCount);
+                    if (level instanceof ServerLevel serverLevel) {
+                        serverLevel.sendParticles(ParticleTypes.DUST_PLUME, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5, 7, 0.0, 0.0, 0.0, 0.0);
+                    }
+
+                    blonkBlockEntity.setChanged();
+                    level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+                    return InteractionResult.CONSUME;
+                } else {
+                    return InteractionResult.TRY_WITH_EMPTY_HAND;
+                }
+            }
+        } else {
+            return InteractionResult.PASS;
+        }
     }
 
     private void shootShell(BlockState state, BlockPos pos, Level level, Player player) {
         if (!(level.getBlockEntity(pos) instanceof BlonkBlockEntity blonkBlockEntity)) {
             return;
         }
-        if (!(blonkBlockEntity.getAmmoCount() > 0)) {
+        if (blonkBlockEntity.getItem(0).isEmpty()) {
             level.playSound(null, pos, ModSounds.BLONK_LOAD_FAIL, SoundSource.BLOCKS, 2.0F, 1.0f);
             return;
         }
@@ -134,9 +139,9 @@ public class BlonkBlock extends BaseEntityBlock {
         level.playSound(null, pos, ModSounds.BLONK_SHOOT, SoundSource.BLOCKS, 2.0F, 1.0f);
         level.addFreshEntity(new ItemEntity(level, pos.getCenter().x(), pos.getCenter().y() + 0.6, pos.getCenter().z(), new ItemStack(ModItems.CASING)));
 
-        blonkBlockEntity.decrementAmmo();
-        blonkBlockEntity.setChanged();
+        blonkBlockEntity.getItem(0).shrink(1);
 
+        blonkBlockEntity.setChanged();
         level.gameEvent(player, GameEvent.BLOCK_ACTIVATE, pos);
     }
 
@@ -191,5 +196,4 @@ public class BlonkBlock extends BaseEntityBlock {
     public @NotNull Item asItem() {
         return super.asItem();
     }
-
 }

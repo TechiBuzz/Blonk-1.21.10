@@ -13,7 +13,6 @@ import org.jetbrains.annotations.NotNull;
 public class BlonkMenu extends AbstractContainerMenu {
     private final Container blonkInventory;
 
-    // TODO: LINK MENU TO BLOCK ENTITY
     public BlonkMenu(int containerId, Inventory inventory) {
         this(containerId, inventory, new SimpleContainer(1));
     }
