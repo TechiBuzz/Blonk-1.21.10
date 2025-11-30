@@ -16,7 +16,6 @@ import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Vec3i;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -118,24 +117,21 @@ public class BlonkBlock extends BaseEntityBlock {
             return;
         }
 
-        Vec3 firingPosition = pos.getCenter().relative(state.getValue(FACING), 0.5);
-        Vec3i firingVelocity = state.getValue(FACING).getUnitVec3i();
-
-        ShellEntity shellEntity = new ShellEntity(ModEntities.SHELL, level);
-        ShellEntity.FACING = state.getValue(FACING);
-        shellEntity.setPos(firingPosition);
+        Vec3 position = pos.getCenter().relative(state.getValue(FACING), 0.7);
+        Direction direction = state.getValue(FACING);
 
         Projectile.spawnProjectileUsingShoot(
-                (level1, shooter, stack) -> shellEntity,
+                (serverLevel, livingEntity, itemStack) -> new ShellEntity(ModEntities.SHELL, position, level),
                 (ServerLevel) level,
                 this.asItem().getDefaultInstance(),
                 player,
-                firingVelocity.getX(),
-                firingVelocity.getY(),
-                firingVelocity.getZ(),
+                direction.getStepX(),
+                direction.getStepY(),
+                direction.getStepZ(),
                 blonkBlockEntity.getFiringPower(),
                 3.0f
         );
+
         level.playSound(null, pos, ModSounds.BLONK_SHOOT, SoundSource.BLOCKS, 2.0F, 1.0f);
         level.addFreshEntity(new ItemEntity(level, pos.getCenter().x(), pos.getCenter().y() + 0.6, pos.getCenter().z(), new ItemStack(ModItems.CASING)));
 

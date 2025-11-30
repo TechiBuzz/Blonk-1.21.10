@@ -70,11 +70,11 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 );
 
                 // CASING
-                shaped(RecipeCategory.COMBAT, ModItems.CASING)
+                shaped(RecipeCategory.COMBAT, ModItems.CASING, 4)
                         .pattern("G  ")
                         .pattern("G  ")
                         .pattern("   ")
-                        .define('G', Items.GOLD_NUGGET)
+                        .define('G', Items.GOLD_INGOT)
                         .unlockedBy(getHasName(Items.GOLD_NUGGET), has(Items.GOLD_NUGGET))
                         .save(output);
 

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "G": "minecraft:gold_nugget"
+    "G": "minecraft:gold_ingot"
   },
   "pattern": [
     "G  ",
@@ -10,7 +10,7 @@
     "   "
   ],
   "result": {
-    "count": 1,
+    "count": 4,
     "id": "blonk:casing"
   }
 }

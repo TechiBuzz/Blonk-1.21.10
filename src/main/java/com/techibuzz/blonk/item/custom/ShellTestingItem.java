@@ -19,18 +19,15 @@ public class ShellTestingItem extends Item {
     }
 
     @Override
-    public @NotNull InteractionResult use(Level world, Player user, InteractionHand hand) {
-        if (!world.isClientSide()) {
-            ShellEntity shellEntity = new ShellEntity(ModEntities.SHELL, world);
-            shellEntity.setPos(user.getEyePosition());
-
+    public @NotNull InteractionResult use(Level level, Player user, InteractionHand hand) {
+        if (!level.isClientSide()) {
             Projectile.spawnProjectileFromRotation(
-                    (world1, shooter, stack) -> shellEntity,
-                    (ServerLevel) world,
+                    (serverLevel, livingEntity, itemStack) -> new ShellEntity(ModEntities.SHELL, user.getEyePosition(), level),
+                    (ServerLevel) level,
                     new ItemStack(ModItems.SHELL_TESTING_ITEM),
                     user,
                     0.0F,
-                    1.5F,
+                    1.25F,
                     0.0F
             );
         }

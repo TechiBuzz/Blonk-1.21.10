@@ -6,6 +6,6 @@ import net.minecraft.client.renderer.entity.state.EntityRenderState;
 
 @Environment(EnvType.CLIENT)
 public class ShellEntityRenderState extends EntityRenderState {
-    public float yaw;
-    public float pitch;
+    public float xRot;
+    public float yRot;
 }
