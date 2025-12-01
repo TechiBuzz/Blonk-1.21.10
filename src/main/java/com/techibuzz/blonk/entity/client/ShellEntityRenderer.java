@@ -44,8 +44,8 @@ public class ShellEntityRenderer extends net.minecraft.client.renderer.entity.En
     @Override
     public void extractRenderState(ShellEntity shellEntity, ShellEntityRenderState shellEntityRenderState, float tickProgress) {
         super.extractRenderState(shellEntity, shellEntityRenderState, tickProgress);
-        shellEntityRenderState.yRot = shellEntity.getYRot();
-        shellEntityRenderState.xRot = shellEntity.getXRot();
+        shellEntityRenderState.yRot = shellEntity.getYRot(tickProgress);
+        shellEntityRenderState.xRot = shellEntity.getXRot(tickProgress);
     }
 }
 

@@ -20,23 +20,22 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.Vec3;
 
 public class ShellEntity extends AbstractHurtingProjectile {
-    private float explosionPower = 3.5F;
-
     public ShellEntity(EntityType<? extends AbstractHurtingProjectile> entityType, Level level) {
         super(entityType, level);
     }
 
     public ShellEntity(EntityType<? extends AbstractHurtingProjectile> entityType, Position position, Level level) {
-        super(entityType, position.x(), position.y(), position.z(), new Vec3(0, 0, 0), level);
+        super(entityType, position.x(), position.y(), position.z(), level);
     }
 
     @Override
     public void tick() {
         super.tick();
-        this.setDeltaMovement(this.getDeltaMovement().subtract(0.0F, 0.005F, 0.0F));
+        this.applyGravity();
+        this.setXRot(this.getXRot());
+        this.setYRot(this.getYRot(0));
     }
 
     @Override
@@ -65,7 +64,7 @@ public class ShellEntity extends AbstractHurtingProjectile {
                 level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
                 level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModBlocks.BROKEN_BLONK.asItem())));
             } else {
-                level.explode(this, this.getX(), this.getY(), this.getZ(), this.explosionPower, Level.ExplosionInteraction.MOB);
+                level.explode(this, this.getX(), this.getY(), this.getZ(), 3.5F, Level.ExplosionInteraction.MOB);
             }
 
             // Replace any blonks with the broken one if in a 3x3 region around explosion
@@ -81,13 +80,13 @@ public class ShellEntity extends AbstractHurtingProjectile {
         }
     }
 
-    public void setExplosionPower(float explosionPower) {
-        this.explosionPower = explosionPower;
+    @Override
+    protected void applyGravity() {
+        this.setDeltaMovement(this.getDeltaMovement().subtract(0.0F, 0.005F, 0.0F));
     }
 
     @Override
     public boolean isOnFire() {
         return false;
     }
-
 }

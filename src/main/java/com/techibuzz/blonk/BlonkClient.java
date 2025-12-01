@@ -25,7 +25,6 @@ public class BlonkClient implements ClientModInitializer {
                 ShellEntityModel.SHELL,
                 ShellEntityModel::getTexturedModelData
         );
-
         MenuScreens.register(ModScreens.BLONK_SCREEN_HANDLER, BlonkScreen::new);
     }
 }
