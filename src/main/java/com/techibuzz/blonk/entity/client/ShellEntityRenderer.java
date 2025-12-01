@@ -25,17 +25,15 @@ public class ShellEntityRenderer extends net.minecraft.client.renderer.entity.En
     }
 
     @Override
-    public void submit(ShellEntityRenderState shellEntityRenderState, PoseStack matrixStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
-        matrixStack.pushPose();
+    public void submit(ShellEntityRenderState shellEntityRenderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
+        poseStack.pushPose();
+        poseStack.mulPose(Axis.YP.rotationDegrees(shellEntityRenderState.yRot));
+        poseStack.mulPose(Axis.XP.rotationDegrees(shellEntityRenderState.xRot));
 
-        matrixStack.mulPose(Axis.YP.rotationDegrees(shellEntityRenderState.yaw));
-        matrixStack.mulPose(Axis.XP.rotationDegrees(shellEntityRenderState.pitch));
+        submitNodeCollector.submitModel(this.model, shellEntityRenderState, poseStack, RenderType.entitySolid(TEXTURE), shellEntityRenderState.lightCoords, OverlayTexture.NO_OVERLAY, shellEntityRenderState.outlineColor, null);
 
-        submitNodeCollector.submitModel(this.model, shellEntityRenderState, matrixStack, RenderType.entitySolid(TEXTURE), shellEntityRenderState.lightCoords, OverlayTexture.NO_OVERLAY, shellEntityRenderState.outlineColor, null);
-
-        matrixStack.popPose();
-
-        super.submit(shellEntityRenderState, matrixStack, submitNodeCollector, cameraRenderState);
+        poseStack.popPose();
+        super.submit(shellEntityRenderState, poseStack, submitNodeCollector, cameraRenderState);
     }
 
     @Override
@@ -46,13 +44,8 @@ public class ShellEntityRenderer extends net.minecraft.client.renderer.entity.En
     @Override
     public void extractRenderState(ShellEntity shellEntity, ShellEntityRenderState shellEntityRenderState, float tickProgress) {
         super.extractRenderState(shellEntity, shellEntityRenderState, tickProgress);
-        shellEntityRenderState.yaw = switch (ShellEntity.FACING) {
-            case NORTH -> 180;
-            case EAST -> 90;
-            case WEST -> -90;
-            default -> 0;
-        };
-        shellEntityRenderState.pitch = shellEntity.getXRot();
+        shellEntityRenderState.yRot = shellEntity.getYRot(tickProgress);
+        shellEntityRenderState.xRot = shellEntity.getXRot(tickProgress);
     }
 }
 

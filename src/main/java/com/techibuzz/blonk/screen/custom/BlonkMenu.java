@@ -1,5 +1,6 @@
 package com.techibuzz.blonk.screen.custom;
 
+import com.techibuzz.blonk.item.ModItems;
 import com.techibuzz.blonk.screen.ModScreens;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -22,7 +23,12 @@ public class BlonkMenu extends AbstractContainerMenu {
 
         this.blonkInventory = container;
         container.startOpen(playerInventory.player);
-        this.addSlot(new Slot(container, 0, 80, 35));
+        this.addSlot(new Slot(container, 0, 80, 35) {
+            @Override
+            public boolean mayPlace(ItemStack stack) {
+                return stack.is(ModItems.SHELL);
+            }
+        });
 
         this.addStandardInventorySlots(playerInventory, 8, 84);
     }
