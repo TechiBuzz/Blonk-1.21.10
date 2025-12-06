@@ -4,6 +4,7 @@ import com.techibuzz.blonk.block.ModBlockEntities;
 import com.techibuzz.blonk.block.ModBlocks;
 import com.techibuzz.blonk.entity.ModEntities;
 import com.techibuzz.blonk.item.ModItemGroups;
+import com.techibuzz.blonk.item.ModItemTags;
 import com.techibuzz.blonk.item.ModItems;
 import com.techibuzz.blonk.screen.ModScreens;
 import com.techibuzz.blonk.sound.ModSounds;
@@ -23,11 +24,15 @@ public class Blonk implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        ModItemTags.registerModItems();
+
         ModItems.registerModItems();
         ModBlocks.registerModBlocks();
+
         ModEntities.registerModEntities();
-        ModItemGroups.registerModItemGroups();
         ModBlockEntities.registerModBlockEntities();
+
+        ModItemGroups.registerModItemGroups();
         ModScreens.registerModScreens();
         ModSounds.registerModSounds();
 

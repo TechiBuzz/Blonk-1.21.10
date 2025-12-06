@@ -25,7 +25,13 @@ public class ModItemGroups {
                 entries.accept(ModItems.GUN_BARREL);
                 entries.accept(ModItems.METAL_ALLOY);
                 entries.accept(ModItems.SCRAP);
+
                 entries.accept(ModItems.SHELL);
+                entries.accept(ModItems.DRAGON_SHELL);
+                entries.accept(ModItems.HE_SHELL);
+                entries.accept(ModItems.HEAT_SHELL);
+                entries.accept(ModItems.NUCLEAR_SHELL);
+                entries.accept(ModItems.SMOKE_SHELL);
 
                 entries.accept(ModBlocks.AMMO_RACK);
 

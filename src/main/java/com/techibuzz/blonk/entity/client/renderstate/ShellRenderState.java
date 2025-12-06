@@ -1,11 +1,12 @@
-package com.techibuzz.blonk.entity.client;
+package com.techibuzz.blonk.entity.client.renderstate;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.resources.ResourceLocation;
 
 @Environment(EnvType.CLIENT)
-public class ShellEntityRenderState extends EntityRenderState {
+public class ShellRenderState extends EntityRenderState {
     public float xRot;
     public float yRot;
 }

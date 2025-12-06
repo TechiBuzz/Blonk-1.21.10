@@ -4,7 +4,14 @@
   "item.blonk.gun_barrel": "Gun Barrel",
   "item.blonk.metal_alloy": "Metal Alloy",
   "item.blonk.scrap": "Scrap",
+
   "item.blonk.shell": "Shell",
+  "item.blonk.dragon_shell": "Dragon Shell",
+  "item.blonk.he_shell": "HE Shell",
+  "item.blonk.heat_shell": "Heat Shell",
+  "item.blonk.nuclear_shell": "Nuclear Shell",
+  "item.blonk.smoke_shell": "Smoke Shell",
+
   "item.blonk.shell_testing_item": "Shell Testing Item",
 
   "block.blonk.ammo_rack": "Ammo Rack",

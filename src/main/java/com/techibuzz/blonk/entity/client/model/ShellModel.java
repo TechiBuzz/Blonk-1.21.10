@@ -1,6 +1,7 @@
-package com.techibuzz.blonk.entity.client;
+package com.techibuzz.blonk.entity.client.model;
 
 import com.techibuzz.blonk.Blonk;
+import com.techibuzz.blonk.entity.client.renderstate.ShellRenderState;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
@@ -16,10 +17,10 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 
 @Environment(EnvType.CLIENT)
-public class ShellEntityModel extends EntityModel<ShellEntityRenderState> {
+public class ShellModel extends EntityModel<ShellRenderState> {
     public static final ModelLayerLocation SHELL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, "shell"), "main");
 
-    public ShellEntityModel(ModelPart root) {
+    public ShellModel(ModelPart root) {
         super(root, RenderType::entitySolid);
     }
 

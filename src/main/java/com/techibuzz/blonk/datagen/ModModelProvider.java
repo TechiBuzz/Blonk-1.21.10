@@ -26,6 +26,12 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.GUN_BARREL, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.METAL_ALLOY, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.SCRAP, ModelTemplates.FLAT_ITEM);
+
         itemModelGenerator.generateFlatItem(ModItems.SHELL, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DRAGON_SHELL, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.HEAT_SHELL, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.HE_SHELL, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.NUCLEAR_SHELL, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SMOKE_SHELL, ModelTemplates.FLAT_ITEM);
     }
 }

@@ -1,6 +1,8 @@
 package com.techibuzz.blonk.item;
 
 import com.techibuzz.blonk.Blonk;
+import com.techibuzz.blonk.entity.ModEntities;
+import com.techibuzz.blonk.item.custom.ShellItem;
 import com.techibuzz.blonk.item.custom.ShellTestingItem;
 import java.util.function.Function;
 import net.minecraft.core.Registry;
@@ -43,7 +45,37 @@ public class ModItems {
 
     public static final Item SHELL = registerItem(
             "shell",
-            Item::new,
+            properties -> new ShellItem(properties, ModEntities.SHELL),
+            new Item.Properties()
+    );
+
+    public static final Item DRAGON_SHELL = registerItem(
+            "dragon_shell",
+            properties -> new ShellItem(properties, ModEntities.DRAGON_SHELL),
+            new Item.Properties()
+    );
+
+    public static final Item HEAT_SHELL = registerItem(
+            "heat_shell",
+            properties -> new ShellItem(properties, ModEntities.HEAT_HELL),
+            new Item.Properties()
+    );
+
+    public static final Item HE_SHELL = registerItem(
+            "he_shell",
+            properties -> new ShellItem(properties, ModEntities.HE_SHELL),
+            new Item.Properties()
+    );
+
+    public static final Item SMOKE_SHELL = registerItem(
+            "smoke_shell",
+            properties -> new ShellItem(properties, ModEntities.SMOKE_SHELL),
+            new Item.Properties()
+    );
+
+    public static final Item NUCLEAR_SHELL = registerItem(
+            "nuclear_shell",
+            properties -> new ShellItem(properties, ModEntities.NUCLEAR_SHELL),
             new Item.Properties()
     );
 
