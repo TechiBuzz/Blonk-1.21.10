@@ -51,31 +51,31 @@ public class ModItems {
     public static final Item DRAGON_SHELL = registerItem(
             "dragon_shell",
             DragonShellItem::new,
-            new Item.Properties()
+            new Item.Properties().stacksTo(16)
     );
 
     public static final Item HEAT_SHELL = registerItem(
             "heat_shell",
             HeatShellItem::new,
-            new Item.Properties()
+            new Item.Properties().stacksTo(4)
     );
 
     public static final Item HE_SHELL = registerItem(
             "he_shell",
             HEShellItem::new,
-            new Item.Properties()
+            new Item.Properties().stacksTo(16)
     );
 
     public static final Item SMOKE_SHELL = registerItem(
             "smoke_shell",
             SmokeShellItem::new,
-            new Item.Properties()
+            new Item.Properties().stacksTo(16)
     );
 
     public static final Item NUCLEAR_SHELL = registerItem(
             "nuclear_shell",
             NuclearShellItem::new,
-            new Item.Properties()
+            new Item.Properties().stacksTo(1)
     );
 
     public static final Item SHELL_TESTING_ITEM = registerItem(

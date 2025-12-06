@@ -4,7 +4,6 @@ import com.mojang.serialization.MapCodec;
 import com.techibuzz.blonk.block.entity.BlonkBlockEntity;
 import com.techibuzz.blonk.item.ModItemTags;
 import com.techibuzz.blonk.item.ModItems;
-import com.techibuzz.blonk.item.custom.ShellItem;
 import com.techibuzz.blonk.sound.ModSounds;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;

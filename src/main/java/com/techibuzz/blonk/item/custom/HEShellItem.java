@@ -1,7 +1,6 @@
 package com.techibuzz.blonk.item.custom;
 
 import com.techibuzz.blonk.entity.ModEntities;
-import com.techibuzz.blonk.entity.custom.DragonShell;
 import com.techibuzz.blonk.entity.custom.HEShell;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
