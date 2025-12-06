@@ -9,6 +9,7 @@ import com.techibuzz.blonk.sound.ModSounds;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ProjectileItem;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.redstone.Orientation;
 import org.jetbrains.annotations.NotNull;
@@ -120,7 +121,7 @@ public class BlonkBlock extends BaseEntityBlock {
         Vec3 position = pos.getCenter().relative(state.getValue(FACING), 0.7);
         Direction direction = state.getValue(FACING);
 
-        ShellItem shellItem = (ShellItem) blonkBlockEntity.getItem(0).getItem();
+        ProjectileItem shellItem = (ProjectileItem) blonkBlockEntity.getItem(0).getItem();
         Projectile.spawnProjectileUsingShoot(
                 (serverLevel, livingEntity, itemStack) -> shellItem.asProjectile(level, position, itemStack, direction),
                 (ServerLevel) level,

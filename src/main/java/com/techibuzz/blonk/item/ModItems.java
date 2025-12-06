@@ -1,9 +1,8 @@
 package com.techibuzz.blonk.item;
 
 import com.techibuzz.blonk.Blonk;
-import com.techibuzz.blonk.entity.ModEntities;
-import com.techibuzz.blonk.item.custom.ShellItem;
-import com.techibuzz.blonk.item.custom.ShellTestingItem;
+import com.techibuzz.blonk.item.custom.*;
+
 import java.util.function.Function;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -45,37 +44,37 @@ public class ModItems {
 
     public static final Item SHELL = registerItem(
             "shell",
-            properties -> new ShellItem(properties, ModEntities.SHELL),
+            ShellItem::new,
             new Item.Properties()
     );
 
     public static final Item DRAGON_SHELL = registerItem(
             "dragon_shell",
-            properties -> new ShellItem(properties, ModEntities.DRAGON_SHELL),
+            DragonShellItem::new,
             new Item.Properties()
     );
 
     public static final Item HEAT_SHELL = registerItem(
             "heat_shell",
-            properties -> new ShellItem(properties, ModEntities.HEAT_HELL),
+            HeatShellItem::new,
             new Item.Properties()
     );
 
     public static final Item HE_SHELL = registerItem(
             "he_shell",
-            properties -> new ShellItem(properties, ModEntities.HE_SHELL),
+            HEShellItem::new,
             new Item.Properties()
     );
 
     public static final Item SMOKE_SHELL = registerItem(
             "smoke_shell",
-            properties -> new ShellItem(properties, ModEntities.SMOKE_SHELL),
+            SmokeShellItem::new,
             new Item.Properties()
     );
 
     public static final Item NUCLEAR_SHELL = registerItem(
             "nuclear_shell",
-            properties -> new ShellItem(properties, ModEntities.NUCLEAR_SHELL),
+            NuclearShellItem::new,
             new Item.Properties()
     );
 
@@ -84,7 +83,6 @@ public class ModItems {
             ShellTestingItem::new,
             new Item.Properties()
     );
-
 
     private static Item registerItem(String name, Function<Item.Properties, Item> itemFactory, Item.Properties settings) {
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, name));

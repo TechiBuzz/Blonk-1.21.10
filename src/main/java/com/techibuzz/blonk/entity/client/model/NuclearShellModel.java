@@ -23,7 +23,7 @@ public class NuclearShellModel extends EntityModel<ShellRenderState> {
 
         PartDefinition nuclear_shell = partdefinition.addOrReplaceChild("nuclear_shell", CubeListBuilder.create().texOffs(0, 0).addBox(-6.0F, -14.0F, -10.0F, 12.0F, 12.0F, 16.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 10.0F, 0.0F, 0, (float) -Math.PI, 0));
 
-        PartDefinition outer = nuclear_shell.addOrReplaceChild("outer", CubeListBuilder.create().texOffs(0, 28).addBox(-7.0F, -14.0F, 2.0F, 14.0F, 14.0F, 8.0F, new CubeDeformation(0.0F))
+        nuclear_shell.addOrReplaceChild("outer", CubeListBuilder.create().texOffs(0, 28).addBox(-7.0F, -14.0F, 2.0F, 14.0F, 14.0F, 8.0F, new CubeDeformation(0.0F))
                 .texOffs(44, 28).addBox(-3.0F, -10.0F, -11.0F, 6.0F, 6.0F, 1.0F, new CubeDeformation(0.0F))
                 .texOffs(30, 36).addBox(-7.0F, -14.0F, 6.0F, 14.0F, 14.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.0F, 0.0F));
 

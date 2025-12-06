@@ -3,15 +3,16 @@
   "category": "equipment",
   "key": {
     "C": "blonk:casing",
-    "E": "blonk:explosive_mix"
+    "E": "blonk:explosive_mix",
+    "G": "minecraft:gravel"
   },
   "pattern": [
-    "   ",
-    " E ",
+    " G ",
+    "GEG",
     " C "
   ],
   "result": {
     "count": 1,
-    "id": "blonk:shell"
+    "id": "blonk:smoke_shell"
   }
 }

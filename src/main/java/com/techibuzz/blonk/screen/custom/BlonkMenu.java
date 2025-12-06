@@ -1,7 +1,6 @@
 package com.techibuzz.blonk.screen.custom;
 
 import com.techibuzz.blonk.item.ModItemTags;
-import com.techibuzz.blonk.item.ModItems;
 import com.techibuzz.blonk.screen.ModScreens;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;

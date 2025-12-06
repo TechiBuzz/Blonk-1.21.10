@@ -3,7 +3,7 @@ package com.techibuzz.blonk.entity.client.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.techibuzz.blonk.entity.client.renderstate.ShellRenderState;
-import com.techibuzz.blonk.entity.custom.ShellEntity;
+import com.techibuzz.blonk.entity.custom.Shell;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.EntityModel;
@@ -17,7 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class ShellRenderer extends EntityRenderer<ShellEntity, ShellRenderState> {
+public class ShellRenderer extends EntityRenderer<Shell, ShellRenderState> {
     private final EntityModel<ShellRenderState> model;
     private final ResourceLocation texture;
 
@@ -45,10 +45,10 @@ public class ShellRenderer extends EntityRenderer<ShellEntity, ShellRenderState>
     }
 
     @Override
-    public void extractRenderState(ShellEntity shellEntity, ShellRenderState shellRenderState, float tickProgress) {
-        super.extractRenderState(shellEntity, shellRenderState, tickProgress);
-        shellRenderState.yRot = shellEntity.getYRot(tickProgress);
-        shellRenderState.xRot = shellEntity.getXRot(tickProgress);
+    public void extractRenderState(Shell shell, ShellRenderState shellRenderState, float tickProgress) {
+        super.extractRenderState(shell, shellRenderState, tickProgress);
+        shellRenderState.yRot = shell.getYRot(tickProgress);
+        shellRenderState.xRot = shell.getXRot(tickProgress);
     }
 }
 

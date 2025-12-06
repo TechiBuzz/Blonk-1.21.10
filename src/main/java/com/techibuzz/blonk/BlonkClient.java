@@ -24,7 +24,7 @@ public class BlonkClient implements ClientModInitializer {
         EntityRenderers.register(ModEntities.DRAGON_SHELL, context -> new ShellRenderer(context, new DragonShellModel(context.bakeLayer(DragonShellModel.DRAGON_SHELL)), ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, "textures/entity/shell/dragon_shell.png")));
         EntityModelLayerRegistry.registerModelLayer(DragonShellModel.DRAGON_SHELL, DragonShellModel::getTexturedModelData);
 
-        EntityRenderers.register(ModEntities.HEAT_HELL, context -> new ShellRenderer(context, new HeatShellModel(context.bakeLayer(HeatShellModel.HEAT_SHELL)), ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, "textures/entity/shell/heat_shell.png")));
+        EntityRenderers.register(ModEntities.HEAT_SHELL, context -> new ShellRenderer(context, new HeatShellModel(context.bakeLayer(HeatShellModel.HEAT_SHELL)), ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, "textures/entity/shell/heat_shell.png")));
         EntityModelLayerRegistry.registerModelLayer(HeatShellModel.HEAT_SHELL, HeatShellModel::getTexturedModelData);
 
         EntityRenderers.register(ModEntities.HE_SHELL, context -> new ShellRenderer(context, new HEShellModel(context.bakeLayer(HEShellModel.HE_SHELL)), ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, "textures/entity/shell/he_shell.png")));

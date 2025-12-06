@@ -3,15 +3,17 @@
   "category": "equipment",
   "key": {
     "C": "blonk:casing",
-    "E": "blonk:explosive_mix"
+    "E": "minecraft:end_crystal",
+    "M": "blonk:metal_alloy",
+    "N": "minecraft:nether_star"
   },
   "pattern": [
-    "   ",
     " E ",
-    " C "
+    "MNM",
+    "MCM"
   ],
   "result": {
     "count": 1,
-    "id": "blonk:shell"
+    "id": "blonk:nuclear_shell"
   }
 }

@@ -8,6 +8,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
@@ -101,11 +102,83 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                     .save(output);
 
                 // SHELL
-                shapeless(RecipeCategory.COMBAT, ModItems.SHELL)
-                        .requires(ModItems.CASING)
-                        .requires(ModItems.EXPLOSIVE_MIX)
-                        .unlockedBy(getHasName(ModItems.CASING), has(ModItems.CASING))
+                shaped(RecipeCategory.COMBAT, ModItems.SHELL)
+                        .pattern("   ")
+                        .pattern(" E ")
+                        .pattern(" C ")
+                        .define('E', ModItems.EXPLOSIVE_MIX)
+                        .define('C', ModItems.CASING)
                         .unlockedBy(getHasName(ModItems.EXPLOSIVE_MIX), has(ModItems.EXPLOSIVE_MIX))
+                        .unlockedBy(getHasName(ModItems.CASING), has(ModItems.CASING))
+                        .save(output);
+
+                // HE SHELL
+                shaped(RecipeCategory.COMBAT, ModItems.HE_SHELL)
+                        .pattern(" T ")
+                        .pattern(" E ")
+                        .pattern(" C ")
+                        .define('T', Items.TNT)
+                        .define('E', ModItems.EXPLOSIVE_MIX)
+                        .define('C', ModItems.CASING)
+                        .unlockedBy(getHasName(Items.TNT), has(Items.TNT))
+                        .unlockedBy(getHasName(ModItems.EXPLOSIVE_MIX), has(ModItems.EXPLOSIVE_MIX))
+                        .unlockedBy(getHasName(ModItems.CASING), has(ModItems.CASING))
+                        .save(output);
+
+                // HEAT SHELL
+                shaped(RecipeCategory.COMBAT, ModItems.HEAT_SHELL)
+                        .pattern(" T ")
+                        .pattern("TET")
+                        .pattern(" C ")
+                        .define('T', Items.TNT)
+                        .define('E', ModItems.EXPLOSIVE_MIX)
+                        .define('C', ModItems.CASING)
+                        .unlockedBy(getHasName(Items.TNT), has(Items.TNT))
+                        .unlockedBy(getHasName(ModItems.EXPLOSIVE_MIX), has(ModItems.EXPLOSIVE_MIX))
+                        .unlockedBy(getHasName(ModItems.CASING), has(ModItems.CASING))
+                        .save(output);
+
+                // NUCLEAR SHELL
+                shaped(RecipeCategory.COMBAT, ModItems.NUCLEAR_SHELL)
+                        .pattern(" E ")
+                        .pattern("MNM")
+                        .pattern("MCM")
+                        .define('E', Items.END_CRYSTAL)
+                        .define('N', Items.NETHER_STAR)
+                        .define('M', ModItems.METAL_ALLOY)
+                        .define('C', ModItems.CASING)
+                        .unlockedBy(getHasName(Items.END_CRYSTAL), has(Items.END_CRYSTAL))
+                        .unlockedBy(getHasName(Items.NETHER_STAR), has(Items.NETHER_STAR))
+                        .unlockedBy(getHasName(ModItems.METAL_ALLOY), has(ModItems.METAL_ALLOY))
+                        .unlockedBy(getHasName(ModItems.CASING), has(ModItems.CASING))
+                        .save(output);
+
+                // SMOKE SHELl
+                shaped(RecipeCategory.COMBAT, ModItems.SMOKE_SHELL)
+                        .pattern(" G ")
+                        .pattern("GEG")
+                        .pattern(" C ")
+                        .define('G', Items.GRAVEL)
+                        .define('E', ModItems.EXPLOSIVE_MIX)
+                        .define('C', ModItems.CASING)
+                        .unlockedBy(getHasName(Items.GRAVEL), has(Items.GRAVEL))
+                        .unlockedBy(getHasName(ModItems.EXPLOSIVE_MIX), has(ModItems.EXPLOSIVE_MIX))
+                        .unlockedBy(getHasName(ModItems.CASING), has(ModItems.CASING))
+                        .save(output);
+
+                // DRAGON SHELL
+                shaped(RecipeCategory.COMBAT, ModItems.DRAGON_SHELL)
+                        .pattern(" D ")
+                        .pattern("PEP")
+                        .pattern(" C ")
+                        .define('D', Items.DRAGON_BREATH)
+                        .define('P', Items.GLASS_PANE)
+                        .define('E', ModItems.EXPLOSIVE_MIX)
+                        .define('C', ModItems.CASING)
+                        .unlockedBy(getHasName(Items.DRAGON_BREATH), has(Items.DRAGON_BREATH))
+                        .unlockedBy(getHasName(Items.GLASS_PANE), has(Items.GLASS_PANE))
+                        .unlockedBy(getHasName(ModItems.EXPLOSIVE_MIX), has(ModItems.EXPLOSIVE_MIX))
+                        .unlockedBy(getHasName(ModItems.CASING), has(ModItems.CASING))
                         .save(output);
 
                 // BLONK

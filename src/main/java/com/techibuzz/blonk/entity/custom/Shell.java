@@ -21,12 +21,14 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 
-public class ShellEntity extends AbstractHurtingProjectile {
-    public ShellEntity(EntityType<? extends AbstractHurtingProjectile> entityType, Level level) {
+public class Shell extends AbstractHurtingProjectile {
+    private static final float DEFAULT_EXPLOSION_POWER = 3.0f;
+
+    public Shell(EntityType<? extends AbstractHurtingProjectile> entityType, Level level) {
         super(entityType, level);
     }
 
-    public ShellEntity(EntityType<? extends AbstractHurtingProjectile> entityType, Position position, Level level) {
+    public Shell(EntityType<? extends AbstractHurtingProjectile> entityType, Position position, Level level) {
         super(entityType, position.x(), position.y(), position.z(), level);
     }
 
@@ -34,6 +36,7 @@ public class ShellEntity extends AbstractHurtingProjectile {
     public void tick() {
         super.tick();
         this.applyGravity();
+        // Fix rotation after spawn
         this.setXRot(this.getXRot());
         this.setYRot(this.getYRot(0));
     }
@@ -44,40 +47,45 @@ public class ShellEntity extends AbstractHurtingProjectile {
         if (this.level() instanceof ServerLevel serverLevel) {
             Entity hitEntity = result.getEntity();
             Entity owner = this.getOwner();
+
             DamageSource damageSource = this.damageSources().explosion(owner, hitEntity);
             hitEntity.hurtServer(serverLevel, damageSource, 6.0F);
             EnchantmentHelper.doPostAttackEffects(serverLevel, hitEntity, damageSource);
+
+            serverLevel.explode(this, this.getX(), this.getY(), this.getZ(), DEFAULT_EXPLOSION_POWER, Level.ExplosionInteraction.MOB);
+            this.discard();
         }
     }
 
     @Override
     protected void onHitBlock(BlockHitResult blockHitResult) {
         super.onHitBlock(blockHitResult);
+        this.explode(blockHitResult.getBlockPos());
+    }
 
-        Level level = this.level();
-        if (!level.isClientSide()) {
-            BlockPos pos = blockHitResult.getBlockPos();
-            // Mega explosion if shell directly hits a blonk
-            if (level.getBlockEntity(pos) instanceof BlonkBlockEntity) {
-                level.explode(this, this.getX(), this.getY(), this.getZ(), 7.0F, true, Level.ExplosionInteraction.MOB);
+    public void explode(BlockPos pos) {
+        if (this.level() instanceof ServerLevel serverLevel) {
+            // Bigger explosion if shell directly hits a blonk
+            if (serverLevel.getBlockEntity(pos) instanceof BlonkBlockEntity) {
+                serverLevel.explode(this, this.getX(), this.getY(), this.getZ(), DEFAULT_EXPLOSION_POWER * 2.0F, true, Level.ExplosionInteraction.MOB);
 
-                level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-                level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModBlocks.BROKEN_BLONK.asItem())));
+                serverLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                serverLevel.addFreshEntity(new ItemEntity(serverLevel, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModBlocks.BROKEN_BLONK.asItem())));
             } else {
-                level.explode(this, this.getX(), this.getY(), this.getZ(), 3.5F, Level.ExplosionInteraction.MOB);
+                serverLevel.explode(this, this.getX(), this.getY(), this.getZ(), DEFAULT_EXPLOSION_POWER, Level.ExplosionInteraction.MOB);
             }
 
             // Replace any blonks with the broken one if in a 3x3 region around explosion
             for (BlockPos blockPos : BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1))) {
-                if (level.getBlockEntity(blockPos) instanceof BlonkBlockEntity) {
-                    level.setBlockAndUpdate(blockPos, ModBlocks.BROKEN_BLONK.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, level.getBlockState(blockPos).getValue(BlockStateProperties.HORIZONTAL_FACING)));
-                    level.playSound(null, blockPos, SoundEvents.CREAKING_DEATH, SoundSource.BLOCKS);
+                if (serverLevel.getBlockEntity(blockPos) instanceof BlonkBlockEntity) {
+                    serverLevel.setBlockAndUpdate(blockPos, ModBlocks.BROKEN_BLONK.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, serverLevel.getBlockState(blockPos).getValue(BlockStateProperties.HORIZONTAL_FACING)));
+                    serverLevel.playSound(null, blockPos, SoundEvents.CREAKING_DEATH, SoundSource.BLOCKS);
 
-                    level.gameEvent(this, GameEvent.BLOCK_CHANGE, blockPos);
+                    serverLevel.gameEvent(this, GameEvent.BLOCK_CHANGE, blockPos);
                 }
             }
-            this.discard();
         }
+        this.discard();
     }
 
     @Override

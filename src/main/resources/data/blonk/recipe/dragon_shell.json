@@ -3,15 +3,17 @@
   "category": "equipment",
   "key": {
     "C": "blonk:casing",
-    "E": "blonk:explosive_mix"
+    "D": "minecraft:dragon_breath",
+    "E": "blonk:explosive_mix",
+    "P": "minecraft:glass_pane"
   },
   "pattern": [
-    "   ",
-    " E ",
+    " D ",
+    "PEP",
     " C "
   ],
   "result": {
     "count": 1,
-    "id": "blonk:shell"
+    "id": "blonk:dragon_shell"
   }
 }
