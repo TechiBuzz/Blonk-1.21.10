@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
+  "group": "shell",
   "key": {
     "C": "blonk:casing",
     "E": "blonk:explosive_mix"

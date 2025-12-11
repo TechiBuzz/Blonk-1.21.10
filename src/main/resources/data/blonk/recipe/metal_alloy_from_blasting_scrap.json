@@ -2,7 +2,7 @@
   "type": "minecraft:blasting",
   "category": "misc",
   "cookingtime": 100,
-  "experience": 0.9,
+  "experience": 1.5,
   "group": "blonk:metal_alloy",
   "ingredient": "blonk:scrap",
   "result": {

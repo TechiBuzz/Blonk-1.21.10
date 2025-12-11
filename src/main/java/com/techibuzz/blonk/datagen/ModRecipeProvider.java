@@ -109,6 +109,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .define('C', ModItems.CASING)
                         .unlockedBy(getHasName(ModItems.EXPLOSIVE_MIX), has(ModItems.EXPLOSIVE_MIX))
                         .unlockedBy(getHasName(ModItems.CASING), has(ModItems.CASING))
+                        .group("shell")
                         .save(output);
 
                 // HE SHELL
@@ -205,12 +206,16 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 );
 
                 // SCRAP -> METAL ALLOY SMELT
-                oreBlasting(List.of(ModItems.SCRAP), RecipeCategory.COMBAT, ModItems.METAL_ALLOY, 0.9F, 100, "blonk:metal_alloy");
-                oreSmelting(List.of(ModItems.SCRAP), RecipeCategory.COMBAT, ModItems.METAL_ALLOY, 0.9F, 200, "blonk:metal_alloy");
+                oreBlasting(List.of(ModItems.SCRAP), RecipeCategory.COMBAT, ModItems.METAL_ALLOY, 1.5f, 100, "blonk:metal_alloy");
+                oreSmelting(List.of(ModItems.SCRAP), RecipeCategory.COMBAT, ModItems.METAL_ALLOY, 1.5f, 200, "blonk:metal_alloy");
 
                 // CASING -> GOLD NUGGET SMELT
-                oreBlasting(List.of(ModItems.CASING), RecipeCategory.COMBAT, Items.GOLD_NUGGET, 0.1F, 100, "blonk:casing");
-                oreSmelting(List.of(ModItems.CASING), RecipeCategory.COMBAT, Items.GOLD_NUGGET, 0.1F, 200, "blonk:casing");
+                oreBlasting(List.of(ModItems.CASING), RecipeCategory.COMBAT, Items.GOLD_NUGGET, 0.3f, 100, "blonk:casing");
+                oreSmelting(List.of(ModItems.CASING), RecipeCategory.COMBAT, Items.GOLD_NUGGET, 0.3f, 200, "blonk:casing");
+
+                // BROKEN BLONK -> NETHERITE_SCRAP
+                oreBlasting(List.of(ModBlocks.BROKEN_BLONK), RecipeCategory.COMBAT, Items.NETHERITE_SCRAP, 1.2f, 100, "netherite_scrap");
+                oreSmelting(List.of(ModBlocks.BROKEN_BLONK), RecipeCategory.COMBAT, Items.NETHERITE_SCRAP, 1.2f, 200, "netherite_scrap");
             }
         };
     }
