@@ -25,7 +25,7 @@ public class ModEntities {
     private static final ResourceKey<EntityType<?>> HEAT_SHELL_KEY = ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, "heat_shell"));
     public static final EntityType<Shell> HEAT_SHELL = Registry.register(
             BuiltInRegistries.ENTITY_TYPE, HEAT_SHELL_KEY,
-            EntityType.Builder.<Shell>of(HeatShell::new, MobCategory.MISC).sized(4/16F, 4/16F).build(HEAT_SHELL_KEY)
+            EntityType.Builder.<Shell>of(HeatShell::new, MobCategory.MISC).sized(6/16F, 6/16F).build(HEAT_SHELL_KEY)
     );
 
     private static final ResourceKey<EntityType<?>> HE_SHELL_KEY = ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, "he_shell"));
@@ -37,7 +37,7 @@ public class ModEntities {
     private static final ResourceKey<EntityType<?>> NUCLEAR_SHELL_KEY = ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, "nuclear_shell"));
     public static final EntityType<Shell> NUCLEAR_SHELL = Registry.register(
             BuiltInRegistries.ENTITY_TYPE, NUCLEAR_SHELL_KEY,
-            EntityType.Builder.<Shell>of(NuclearShell::new, MobCategory.MISC).sized(4/16F, 4/16F).build(NUCLEAR_SHELL_KEY)
+            EntityType.Builder.<Shell>of(NuclearShell::new, MobCategory.MISC).sized(12/16F, 12/16F).build(NUCLEAR_SHELL_KEY)
     );
 
     private static final ResourceKey<EntityType<?>> SMOKE_SHELL_KEY = ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, "smoke_shell"));

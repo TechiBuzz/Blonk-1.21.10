@@ -22,7 +22,7 @@ public class SmokeShellModel extends EntityModel<ShellRenderState> {
         MeshDefinition modelData = new MeshDefinition();
 
         PartDefinition modelPartData = modelData.getRoot();
-        modelPartData.addOrReplaceChild("smoke_shell", CubeListBuilder.create().texOffs(0, 0).addBox(-2.0F, 0.0F, -4.0F, 4.0F, 4.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.rotation(0.0F,0, 0.0F));
+        modelPartData.addOrReplaceChild("smoke_shell", CubeListBuilder.create().texOffs(0, 0).addBox(-2.0F, 0.0F, -4.0F, 4.0F, 4.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0,0,-2F,0.0F,0, 0.0F));
 
         return LayerDefinition.create(modelData, 32, 32);
     }

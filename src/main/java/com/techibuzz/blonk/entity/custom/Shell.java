@@ -22,7 +22,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 
 public class Shell extends AbstractHurtingProjectile {
-    private static final float DEFAULT_EXPLOSION_POWER = 3.0f;
+    protected float explosionPower = 2.5f;
+    protected float blonkExplosionScalingFactor = 2.5f;
+    protected float entityDamage = 20.0f;
+    protected float gravity = 0.005f;
 
     public Shell(EntityType<? extends AbstractHurtingProjectile> entityType, Level level) {
         super(entityType, level);
@@ -49,10 +52,10 @@ public class Shell extends AbstractHurtingProjectile {
             Entity owner = this.getOwner();
 
             DamageSource damageSource = this.damageSources().explosion(owner, hitEntity);
-            hitEntity.hurtServer(serverLevel, damageSource, 6.0F);
+            hitEntity.hurtServer(serverLevel, damageSource, this.entityDamage);
             EnchantmentHelper.doPostAttackEffects(serverLevel, hitEntity, damageSource);
 
-            serverLevel.explode(this, this.getX(), this.getY(), this.getZ(), DEFAULT_EXPLOSION_POWER, Level.ExplosionInteraction.MOB);
+            this.explode(hitEntity.getOnPos(), false);
             this.discard();
         }
     }
@@ -60,21 +63,20 @@ public class Shell extends AbstractHurtingProjectile {
     @Override
     protected void onHitBlock(BlockHitResult blockHitResult) {
         super.onHitBlock(blockHitResult);
-        this.explode(blockHitResult.getBlockPos());
+        this.explode(blockHitResult.getBlockPos(), false);
     }
 
-    public void explode(BlockPos pos) {
+    public void explode(BlockPos pos, boolean createFire) {
         if (this.level() instanceof ServerLevel serverLevel) {
             // Bigger explosion if shell directly hits a blonk
             if (serverLevel.getBlockEntity(pos) instanceof BlonkBlockEntity) {
-                serverLevel.explode(this, this.getX(), this.getY(), this.getZ(), DEFAULT_EXPLOSION_POWER * 2.0F, true, Level.ExplosionInteraction.MOB);
+                serverLevel.explode(this, this.getX(), this.getY(), this.getZ(), this.explosionPower * this.blonkExplosionScalingFactor, true, Level.ExplosionInteraction.MOB);
 
                 serverLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
                 serverLevel.addFreshEntity(new ItemEntity(serverLevel, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModBlocks.BROKEN_BLONK.asItem())));
             } else {
-                serverLevel.explode(this, this.getX(), this.getY(), this.getZ(), DEFAULT_EXPLOSION_POWER, Level.ExplosionInteraction.MOB);
+                serverLevel.explode(this, this.getX(), this.getY(), this.getZ(), this.explosionPower, createFire, Level.ExplosionInteraction.MOB);
             }
-
             // Replace any blonks with the broken one if in a 3x3 region around explosion
             for (BlockPos blockPos : BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1))) {
                 if (serverLevel.getBlockEntity(blockPos) instanceof BlonkBlockEntity) {
@@ -90,7 +92,7 @@ public class Shell extends AbstractHurtingProjectile {
 
     @Override
     protected void applyGravity() {
-        this.setDeltaMovement(this.getDeltaMovement().subtract(0.0F, 0.005F, 0.0F));
+        this.setDeltaMovement(this.getDeltaMovement().subtract(0.0F, this.gravity, 0.0F));
     }
 
     @Override

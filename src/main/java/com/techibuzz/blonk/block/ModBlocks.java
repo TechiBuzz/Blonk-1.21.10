@@ -243,9 +243,7 @@ public class ModBlocks {
                     .requiresCorrectToolForDrops()
                     .strength(5.0F, 6.0F),
             true,
-            new Item.Properties()
-                    .fireResistant()
-                    .component(DataComponents.DAMAGE_RESISTANT, new DamageResistant(DamageTypeTags.IS_EXPLOSION))
+            new Item.Properties().component(DataComponents.DAMAGE_RESISTANT, new DamageResistant(DamageTypeTags.IS_EXPLOSION)).fireResistant()
     );
 
     private static Block register(String name, Function<BlockBehaviour.Properties, Block> blockFactory, BlockBehaviour.Properties settings, boolean shouldRegisterItem, Item.Properties customItemSettings) {

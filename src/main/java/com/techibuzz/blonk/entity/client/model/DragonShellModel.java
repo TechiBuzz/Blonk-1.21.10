@@ -21,7 +21,7 @@ public class DragonShellModel extends EntityModel<ShellRenderState> {
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
 
-        PartDefinition dragon_shell = partdefinition.addOrReplaceChild("dragon_shell", CubeListBuilder.create().texOffs(0, 0).addBox(-2.0F, 0.0F, -7.0F, 4.0F, 4.0F, 14.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0,4,0,0.0F, (float) -Math.PI, (float) (Math.PI)));
+        PartDefinition dragon_shell = partdefinition.addOrReplaceChild("dragon_shell", CubeListBuilder.create().texOffs(0, 0).addBox(-2.0F, 0.0F, -7.0F, 4.0F, 4.0F, 14.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0,4,-5.0F,0.0F, (float) -Math.PI, (float) (Math.PI)));
         PartDefinition bone2 = dragon_shell.addOrReplaceChild("bone2", CubeListBuilder.create().texOffs(0, 18).addBox(-5.0F, 2.0F, -4.0F, 10.0F, 0.0F, 11.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
         bone2.addOrReplaceChild("vertical_fins_r1", CubeListBuilder.create().texOffs(0, 29).addBox(-5.0F, 0.0F, -5.5F, 10.0F, 0.0F, 11.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 2.0F, 1.5F, 0.0F, 0.0F, -1.5708F));
 

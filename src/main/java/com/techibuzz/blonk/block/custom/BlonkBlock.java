@@ -4,11 +4,11 @@ import com.mojang.serialization.MapCodec;
 import com.techibuzz.blonk.block.entity.BlonkBlockEntity;
 import com.techibuzz.blonk.item.ModItemTags;
 import com.techibuzz.blonk.item.ModItems;
+import com.techibuzz.blonk.item.custom.ShellItem;
 import com.techibuzz.blonk.sound.ModSounds;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.ProjectileItem;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.redstone.Orientation;
 import org.jetbrains.annotations.NotNull;
@@ -120,7 +120,7 @@ public class BlonkBlock extends BaseEntityBlock {
         Vec3 position = pos.getCenter().relative(state.getValue(FACING), 0.7);
         Direction direction = state.getValue(FACING);
 
-        ProjectileItem shellItem = (ProjectileItem) blonkBlockEntity.getItem(0).getItem();
+        ShellItem shellItem = (ShellItem) blonkBlockEntity.getItem(0).getItem();
         Projectile.spawnProjectileUsingShoot(
                 (serverLevel, livingEntity, itemStack) -> shellItem.asProjectile(level, position, itemStack, direction),
                 (ServerLevel) level,
@@ -129,7 +129,7 @@ public class BlonkBlock extends BaseEntityBlock {
                 direction.getStepX(),
                 direction.getStepY(),
                 direction.getStepZ(),
-                blonkBlockEntity.getFiringPower(),
+                blonkBlockEntity.getFiringPower() * shellItem.getDragFactor(),
                 3.0f
         );
 

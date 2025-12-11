@@ -5,13 +5,11 @@ import com.techibuzz.blonk.entity.custom.NuclearShell;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ProjectileItem;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-public class NuclearShellItem extends Item implements ProjectileItem {
+public class NuclearShellItem extends ShellItem {
     public NuclearShellItem(Properties properties) {
         super(properties);
     }
@@ -19,5 +17,10 @@ public class NuclearShellItem extends Item implements ProjectileItem {
     @Override
     public @NotNull Projectile asProjectile(Level level, Position pos, ItemStack stack, Direction direction) {
         return new NuclearShell(ModEntities.NUCLEAR_SHELL, pos, level);
+    }
+
+    @Override
+    public float getDragFactor() {
+        return 0.4f;
     }
 }

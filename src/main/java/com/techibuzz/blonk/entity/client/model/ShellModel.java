@@ -29,7 +29,7 @@ public class ShellModel extends EntityModel<ShellRenderState> {
 
         PartDefinition modelPartData = modelData.getRoot();
         modelPartData.addOrReplaceChild("shell", CubeListBuilder.create().texOffs(0, 0).addBox(-2.0F, 0.0F, -3.5F, 4.0F, 4.0F, 7.0F, new CubeDeformation(0.0F)),
-                PartPose.rotation(0, (float) -Math.PI, 0));
+                PartPose.offsetAndRotation(0,0,-1.5F,0, (float) -Math.PI, 0));
 
         return LayerDefinition.create(modelData, 32, 32);
     }

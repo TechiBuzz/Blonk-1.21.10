@@ -21,7 +21,7 @@ public class HeatShellModel extends EntityModel<ShellRenderState> {
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
 
-        PartDefinition heat_shell = partdefinition.addOrReplaceChild("heat_shell", CubeListBuilder.create().texOffs(0, 12).addBox(-8.75F, -3.0F, -3.0F, 12.0F, 6.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-0.25F, 2.0F, -2.0F, 0.0F, (float) Math.PI/2, 0.0F));
+        PartDefinition heat_shell = partdefinition.addOrReplaceChild("heat_shell", CubeListBuilder.create().texOffs(0, 12).addBox(-8.75F, -3.0F, -3.0F, 12.0F, 6.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 3.0F, -5.8F, 0.0F, (float) Math.PI/2, 0.0F));
 
         PartDefinition fins = heat_shell.addOrReplaceChild("fins", CubeListBuilder.create(), PartPose.offset(2.75F, 0.0F, 0.0F));
         fins.addOrReplaceChild("fin2_r1", CubeListBuilder.create().texOffs(0, 0).addBox(-4.5F, -6.0F, 0.0F, 9.0F, 12.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.7854F, 0.0F, 0.0F));

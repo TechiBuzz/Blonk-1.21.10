@@ -20,4 +20,8 @@ public class ShellItem extends Item implements ProjectileItem {
     public @NotNull Projectile asProjectile(Level level, Position pos, ItemStack stack, Direction direction) {
         return new Shell(ModEntities.SHELL, pos, level);
     }
+
+    public float getDragFactor() {
+        return 1.0f;
+    }
 }
