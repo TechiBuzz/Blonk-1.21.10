@@ -4,10 +4,11 @@
   "key": {
     "C": "blonk:casing",
     "E": "blonk:explosive_mix",
-    "G": "minecraft:gravel"
+    "G": "minecraft:gravel",
+    "S": "minecraft:smoker"
   },
   "pattern": [
-    " G ",
+    " S ",
     "GEG",
     " C "
   ],

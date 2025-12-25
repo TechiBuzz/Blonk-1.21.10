@@ -14,8 +14,8 @@ public class HeatShell extends Shell {
     public HeatShell(EntityType<? extends AbstractHurtingProjectile> entityType, Position position, Level level) {
         super(entityType, position, level);
 
-        this.explosionPower = 9.0f;
-        this.blonkExplosionScalingFactor = 7.0f;
+        this.explosionPower = 8.0f;
+        this.blonkExplosionScalingFactor = 5.0f;
         this.entityDamage = 40.0f;
 
         this.gravity = 0.0035f;
