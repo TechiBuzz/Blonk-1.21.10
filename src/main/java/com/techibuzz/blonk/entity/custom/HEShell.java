@@ -14,13 +14,13 @@ public class HEShell extends Shell {
     public HEShell(EntityType<? extends AbstractHurtingProjectile> entityType, Position position, Level level) {
         super(entityType, position, level);
 
-        this.explosionPower = 7.0F;
-        this.blonkExplosionScalingFactor = 5.0F;
-        this.entityDamage = 20.0F;
+        this.explosionPower = 3.25f;
+        this.blonkExplosionScalingFactor = 3.25f;
+        this.entityDamage = 20.0f;
     }
 
     @Override
     public void explode(BlockPos pos, boolean createFire) {
-        super.explode(pos, true);
+        super.explode(pos, false);
     }
 }

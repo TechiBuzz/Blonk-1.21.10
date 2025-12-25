@@ -22,9 +22,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 
 public class Shell extends AbstractHurtingProjectile {
-    protected float explosionPower = 2.5f;
-    protected float blonkExplosionScalingFactor = 2.5f;
-    protected float entityDamage = 20.0f;
+    protected float explosionPower = 2f;
+    protected float blonkExplosionScalingFactor = 2f;
+    protected float entityDamage = 16.0f;
     protected float gravity = 0.005f;
 
     public Shell(EntityType<? extends AbstractHurtingProjectile> entityType, Level level) {

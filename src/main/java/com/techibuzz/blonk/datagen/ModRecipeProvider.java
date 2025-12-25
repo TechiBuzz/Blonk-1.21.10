@@ -155,12 +155,14 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
                 // SMOKE SHELl
                 shaped(RecipeCategory.COMBAT, ModItems.SMOKE_SHELL)
-                        .pattern(" G ")
+                        .pattern(" S ")
                         .pattern("GEG")
                         .pattern(" C ")
+                        .define('S', Items.SMOKER)
                         .define('G', Items.GRAVEL)
                         .define('E', ModItems.EXPLOSIVE_MIX)
                         .define('C', ModItems.CASING)
+                        .unlockedBy(getHasName(Items.SMOKER), has(Items.SMOKER))
                         .unlockedBy(getHasName(Items.GRAVEL), has(Items.GRAVEL))
                         .unlockedBy(getHasName(ModItems.EXPLOSIVE_MIX), has(ModItems.EXPLOSIVE_MIX))
                         .unlockedBy(getHasName(ModItems.CASING), has(ModItems.CASING))

@@ -31,6 +31,16 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "has_smoker": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:smoker"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "has_the_recipe": {
       "conditions": {
         "recipe": "blonk:smoke_shell"
@@ -41,6 +51,7 @@
   "requirements": [
     [
       "has_the_recipe",
+      "has_smoker",
       "has_gravel",
       "has_explosive_mix",
       "has_casing"

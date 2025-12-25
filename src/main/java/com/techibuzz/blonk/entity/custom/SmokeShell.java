@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Position;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
@@ -21,8 +22,9 @@ public class SmokeShell extends Shell {
     @Override
     public void explode(BlockPos pos, boolean createFire) {
         if (this.level() instanceof ServerLevel serverLevel) {
+            RandomSource randomSource = level().random;
             for (BlockPos blockPos : BlockPos.betweenClosed(pos.offset(-3, 1, -3), pos.offset(3, 1, 3))) {
-                serverLevel.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, true, true, blockPos.getX(), blockPos.getY(), blockPos.getZ(), 130,0.2F, 0.3F, 0.2F, 0.02F);
+                serverLevel.sendParticles(ParticleTypes.CAMPFIRE_SIGNAL_SMOKE, true, true, blockPos.getX() + randomSource.nextFloat(), blockPos.getY(), blockPos.getZ() + randomSource.nextFloat(), 80 ,0.2f + randomSource.nextFloat(), 0.3F + randomSource.nextFloat(), 0.2F+ randomSource.nextFloat(), 0.02f);
             }
         }
         this.discard();
