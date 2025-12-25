@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "blonk:casing",
+    "E": "blonk:explosive_mix",
+    "T": "minecraft:tnt"
+  },
+  "pattern": [
+    " T ",
+    "TET",
+    " C "
+  ],
+  "result": {
+    "count": 1,
+    "id": "blonk:heat_shell"
+  }
+}

@@ -2,9 +2,9 @@ package com.techibuzz.blonk.block.custom;
 
 import com.mojang.serialization.MapCodec;
 import com.techibuzz.blonk.block.entity.BlonkBlockEntity;
-import com.techibuzz.blonk.entity.ModEntities;
-import com.techibuzz.blonk.entity.custom.ShellEntity;
+import com.techibuzz.blonk.item.ModItemTags;
 import com.techibuzz.blonk.item.ModItems;
+import com.techibuzz.blonk.item.custom.ShellItem;
 import com.techibuzz.blonk.sound.ModSounds;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
@@ -78,7 +78,7 @@ public class BlonkBlock extends BaseEntityBlock {
                 return InteractionResult.SUCCESS;
             } else {
                 ItemStack itemStack = blonkBlockEntity.getItem(0);
-                if (stack.is(ModItems.SHELL) && (itemStack.isEmpty() || ItemStack.isSameItemSameComponents(itemStack, stack) && itemStack.getCount() < itemStack.getMaxStackSize())) {
+                if (stack.is(ModItemTags.SHELLS) && (itemStack.isEmpty() || ItemStack.isSameItemSameComponents(itemStack, stack) && itemStack.getCount() < itemStack.getMaxStackSize())) {
                     player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
 
                     ItemStack freshItemStack = stack.consumeAndReturn(1, player);
@@ -120,15 +120,16 @@ public class BlonkBlock extends BaseEntityBlock {
         Vec3 position = pos.getCenter().relative(state.getValue(FACING), 0.7);
         Direction direction = state.getValue(FACING);
 
+        ShellItem shellItem = (ShellItem) blonkBlockEntity.getItem(0).getItem();
         Projectile.spawnProjectileUsingShoot(
-                (serverLevel, livingEntity, itemStack) -> new ShellEntity(ModEntities.SHELL, position, level),
+                (serverLevel, livingEntity, itemStack) -> shellItem.asProjectile(level, position, itemStack, direction),
                 (ServerLevel) level,
                 this.asItem().getDefaultInstance(),
                 player,
                 direction.getStepX(),
                 direction.getStepY(),
                 direction.getStepZ(),
-                blonkBlockEntity.getFiringPower(),
+                blonkBlockEntity.getFiringPower() * shellItem.getDragFactor(),
                 3.0f
         );
 

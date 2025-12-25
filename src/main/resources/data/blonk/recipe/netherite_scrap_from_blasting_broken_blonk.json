@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 1.2,
+  "group": "netherite_scrap",
+  "ingredient": "blonk:broken_blonk",
+  "result": {
+    "id": "minecraft:netherite_scrap"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "blonk:casing",
+    "E": "blonk:explosive_mix",
+    "G": "minecraft:gravel"
+  },
+  "pattern": [
+    " G ",
+    "GEG",
+    " C "
+  ],
+  "result": {
+    "count": 1,
+    "id": "blonk:smoke_shell"
+  }
+}

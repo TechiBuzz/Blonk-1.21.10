@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "blonk:casing",
+    "E": "minecraft:end_crystal",
+    "M": "blonk:metal_alloy",
+    "N": "minecraft:nether_star"
+  },
+  "pattern": [
+    " E ",
+    "MNM",
+    "MCM"
+  ],
+  "result": {
+    "count": 1,
+    "id": "blonk:nuclear_shell"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "blonk:casing",
+    "D": "minecraft:dragon_breath",
+    "E": "blonk:explosive_mix",
+    "P": "minecraft:glass_pane"
+  },
+  "pattern": [
+    " D ",
+    "PEP",
+    " C "
+  ],
+  "result": {
+    "count": 1,
+    "id": "blonk:dragon_shell"
+  }
+}

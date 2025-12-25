@@ -1,7 +1,8 @@
 package com.techibuzz.blonk.item;
 
 import com.techibuzz.blonk.Blonk;
-import com.techibuzz.blonk.item.custom.ShellTestingItem;
+import com.techibuzz.blonk.item.custom.*;
+
 import java.util.function.Function;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -43,8 +44,38 @@ public class ModItems {
 
     public static final Item SHELL = registerItem(
             "shell",
-            Item::new,
+            ShellItem::new,
             new Item.Properties()
+    );
+
+    public static final Item DRAGON_SHELL = registerItem(
+            "dragon_shell",
+            DragonShellItem::new,
+            new Item.Properties().stacksTo(16)
+    );
+
+    public static final Item HEAT_SHELL = registerItem(
+            "heat_shell",
+            HeatShellItem::new,
+            new Item.Properties().stacksTo(4)
+    );
+
+    public static final Item HE_SHELL = registerItem(
+            "he_shell",
+            HEShellItem::new,
+            new Item.Properties().stacksTo(16)
+    );
+
+    public static final Item SMOKE_SHELL = registerItem(
+            "smoke_shell",
+            SmokeShellItem::new,
+            new Item.Properties().stacksTo(16)
+    );
+
+    public static final Item NUCLEAR_SHELL = registerItem(
+            "nuclear_shell",
+            NuclearShellItem::new,
+            new Item.Properties().stacksTo(1)
     );
 
     public static final Item SHELL_TESTING_ITEM = registerItem(
@@ -52,7 +83,6 @@ public class ModItems {
             ShellTestingItem::new,
             new Item.Properties()
     );
-
 
     private static Item registerItem(String name, Function<Item.Properties, Item> itemFactory, Item.Properties settings) {
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, name));
