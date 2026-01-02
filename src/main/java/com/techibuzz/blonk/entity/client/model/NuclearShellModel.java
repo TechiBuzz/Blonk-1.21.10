@@ -7,14 +7,14 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.resources.Identifier;
 
 public class NuclearShellModel extends EntityModel<ShellRenderState> {
-    public static final ModelLayerLocation NUCLEAR_SHELL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, "nuclear_shell"), "main");
+    public static final ModelLayerLocation NUCLEAR_SHELL = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Blonk.MOD_ID, "nuclear_shell"), "main");
 
     public NuclearShellModel(ModelPart root) {
-        super(root, RenderType::entityCutoutNoCull);
+        super(root, RenderTypes::entityCutoutNoCull);
     }
 
     public static LayerDefinition getTexturedModelData() {

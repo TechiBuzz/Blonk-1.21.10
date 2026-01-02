@@ -9,15 +9,16 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
+import net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 public class DragonShell extends Shell {
-    public DragonShell(EntityType<? extends AbstractHurtingProjectile> entityType, Level level) {
+    public DragonShell(EntityType<? extends @NotNull AbstractHurtingProjectile> entityType, Level level) {
         super(entityType, level);
     }
 
-    public DragonShell(EntityType<? extends AbstractHurtingProjectile> entityType, Position position, Level level) {
+    public DragonShell(EntityType<? extends @NotNull AbstractHurtingProjectile> entityType, Position position, Level level) {
         super(entityType, position, level);
         this.entityDamage = 16.0f;
     }

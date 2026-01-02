@@ -10,7 +10,7 @@ import com.techibuzz.blonk.screen.ModScreens;
 import com.techibuzz.blonk.sound.ModSounds;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
-import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.ItemCost;
@@ -37,7 +37,7 @@ public class Blonk implements ModInitializer {
         ModSounds.registerModSounds();
 
         // Scrap trade to max level armorer
-        TradeOfferHelper.registerVillagerOffers(VillagerProfession.ARMORER, 5, factories -> factories.add((entity, random) -> new MerchantOffer(
+        TradeOfferHelper.registerVillagerOffers(VillagerProfession.ARMORER, 5, factories -> factories.add((level, entity, random) -> new MerchantOffer(
                 new ItemCost(Items.EMERALD, 24),
                 new ItemStack(ModItems.SCRAP),
                 3,

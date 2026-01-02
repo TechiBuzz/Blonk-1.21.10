@@ -6,15 +6,16 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
+import net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 public class SmokeShell extends Shell {
-    public SmokeShell(EntityType<? extends AbstractHurtingProjectile> entityType, Level level) {
+    public SmokeShell(EntityType<? extends @NotNull AbstractHurtingProjectile> entityType, Level level) {
         super(entityType, level);
     }
 
-    public SmokeShell(EntityType<? extends AbstractHurtingProjectile> entityType, Position position, Level level) {
+    public SmokeShell(EntityType<? extends @NotNull AbstractHurtingProjectile> entityType, Position position, Level level) {
         super(entityType, position, level);
         this.entityDamage = 14.0f;
     }

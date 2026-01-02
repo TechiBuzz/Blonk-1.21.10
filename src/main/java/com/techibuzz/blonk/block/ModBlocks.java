@@ -8,7 +8,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -247,12 +247,12 @@ public class ModBlocks {
     );
 
     private static Block register(String name, Function<BlockBehaviour.Properties, Block> blockFactory, BlockBehaviour.Properties settings, boolean shouldRegisterItem, Item.Properties customItemSettings) {
-        ResourceKey<Block> blockKey = ResourceKey.create(BuiltInRegistries.BLOCK.key(), ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, name));
+        ResourceKey<Block> blockKey = ResourceKey.create(BuiltInRegistries.BLOCK.key(), Identifier.fromNamespaceAndPath(Blonk.MOD_ID, name));
         Block block = blockFactory.apply(settings.setId(blockKey));
 
         // Blocks with items
         if (shouldRegisterItem) {
-            ResourceKey<Item> itemKey =  ResourceKey.create(BuiltInRegistries.ITEM.key(), ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, name));
+            ResourceKey<Item> itemKey =  ResourceKey.create(BuiltInRegistries.ITEM.key(), Identifier.fromNamespaceAndPath(Blonk.MOD_ID, name));
 
             BlockItem blockItem = new BlockItem(block, customItemSettings.setId(itemKey).useBlockDescriptionPrefix());
 

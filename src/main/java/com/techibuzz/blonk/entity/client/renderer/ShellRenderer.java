@@ -7,21 +7,21 @@ import com.techibuzz.blonk.entity.custom.Shell;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class ShellRenderer extends EntityRenderer<Shell, ShellRenderState> {
     private final EntityModel<ShellRenderState> model;
-    private final ResourceLocation texture;
+    private final Identifier texture;
 
-    public ShellRenderer(EntityRendererProvider.Context context, EntityModel<ShellRenderState> model, ResourceLocation texture) {
+    public ShellRenderer(EntityRendererProvider.Context context, EntityModel<ShellRenderState> model, Identifier texture) {
         super(context);
         this.model = model;
         this.texture = texture;
@@ -33,7 +33,7 @@ public class ShellRenderer extends EntityRenderer<Shell, ShellRenderState> {
         poseStack.mulPose(Axis.YP.rotationDegrees(shellRenderState.yRot));
         poseStack.mulPose(Axis.XP.rotationDegrees(shellRenderState.xRot));
 
-        submitNodeCollector.submitModel(this.model, shellRenderState, poseStack, RenderType.entityCutoutNoCull(this.texture), shellRenderState.lightCoords, OverlayTexture.NO_OVERLAY, shellRenderState.outlineColor, null);
+        submitNodeCollector.submitModel(this.model, shellRenderState, poseStack, RenderTypes.entityCutoutNoCull(this.texture), shellRenderState.lightCoords, OverlayTexture.NO_OVERLAY, shellRenderState.outlineColor, null);
 
         poseStack.popPose();
         super.submit(shellRenderState, poseStack, submitNodeCollector, cameraRenderState);

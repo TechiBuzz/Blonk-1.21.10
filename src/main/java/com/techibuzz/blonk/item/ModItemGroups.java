@@ -7,14 +7,14 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
 public class ModItemGroups {
     public static final ResourceKey<CreativeModeTab> BLONK_ITEM_GROUP_KEY = ResourceKey.create(
             BuiltInRegistries.CREATIVE_MODE_TAB.key(),
-            ResourceLocation.fromNamespaceAndPath("blonk_item_group", Blonk.MOD_ID)
+            Identifier.fromNamespaceAndPath("blonk_item_group", Blonk.MOD_ID)
     );
     public static final CreativeModeTab BLONK_ITEM_GROUP = FabricItemGroup.builder()
             .title(Component.translatable("itemGroup.blonk_item_group"))
