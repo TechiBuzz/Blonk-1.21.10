@@ -5,7 +5,7 @@ import com.techibuzz.blonk.block.entity.BlonkBlockEntity;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -38,7 +38,7 @@ public class ModBlockEntities {
     private static <T extends BlockEntity> BlockEntityType<T> register(String name, FabricBlockEntityTypeBuilder.Factory<? extends T> entityFactory, Block... blocks) {
         return Registry.register(
                 BuiltInRegistries.BLOCK_ENTITY_TYPE,
-                ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, name),
+                Identifier.fromNamespaceAndPath(Blonk.MOD_ID, name),
                 FabricBlockEntityTypeBuilder.<T>create(entityFactory, blocks).build()
         );
     }

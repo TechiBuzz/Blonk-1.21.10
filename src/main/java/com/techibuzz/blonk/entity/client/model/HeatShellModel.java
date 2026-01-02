@@ -7,14 +7,14 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.resources.Identifier;
 
 public class HeatShellModel extends EntityModel<ShellRenderState> {
-    public static final ModelLayerLocation HEAT_SHELL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, "heat_shell"), "main");
+    public static final ModelLayerLocation HEAT_SHELL = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Blonk.MOD_ID, "heat_shell"), "main");
 
     public HeatShellModel(ModelPart root) {
-		super(root, RenderType::entityCutout);
+		super(root, RenderTypes::entityCutoutNoCull);
 	}
     
 	public static LayerDefinition getTexturedModelData() {

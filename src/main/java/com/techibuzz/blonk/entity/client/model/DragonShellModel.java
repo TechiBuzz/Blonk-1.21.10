@@ -7,14 +7,15 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.resources.Identifier;
+import org.jetbrains.annotations.NotNull;
 
-public class DragonShellModel extends EntityModel<ShellRenderState> {
-    public static final ModelLayerLocation DRAGON_SHELL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, "dragon_shell"), "main");
+public class DragonShellModel extends EntityModel<@NotNull ShellRenderState> {
+    public static final ModelLayerLocation DRAGON_SHELL = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Blonk.MOD_ID, "dragon_shell"), "main");
 
     public DragonShellModel(ModelPart root) {
-        super(root, RenderType::entityCutout);
+        super(root, RenderTypes::entityCutoutNoCull);
 	}
 
     public static LayerDefinition getTexturedModelData() {

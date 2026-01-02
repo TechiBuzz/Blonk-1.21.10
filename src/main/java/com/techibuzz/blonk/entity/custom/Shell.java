@@ -11,7 +11,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
+import net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
@@ -20,18 +20,19 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import org.jetbrains.annotations.NotNull;
 
-public class Shell extends AbstractHurtingProjectile {
+public class Shell extends net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile {
     protected float explosionPower = 2f;
     protected float blonkExplosionScalingFactor = 2f;
     protected float entityDamage = 16.0f;
     protected float gravity = 0.005f;
 
-    public Shell(EntityType<? extends AbstractHurtingProjectile> entityType, Level level) {
+    public Shell(EntityType<? extends @NotNull AbstractHurtingProjectile> entityType, Level level) {
         super(entityType, level);
     }
 
-    public Shell(EntityType<? extends AbstractHurtingProjectile> entityType, Position position, Level level) {
+    public Shell(EntityType<? extends @NotNull AbstractHurtingProjectile> entityType, Position position, Level level) {
         super(entityType, position.x(), position.y(), position.z(), level);
     }
 
@@ -45,7 +46,7 @@ public class Shell extends AbstractHurtingProjectile {
     }
 
     @Override
-    protected void onHitEntity(EntityHitResult result) {
+    protected void onHitEntity(@NotNull EntityHitResult result) {
         super.onHitEntity(result);
         if (this.level() instanceof ServerLevel serverLevel) {
             Entity hitEntity = result.getEntity();
@@ -61,7 +62,7 @@ public class Shell extends AbstractHurtingProjectile {
     }
 
     @Override
-    protected void onHitBlock(BlockHitResult blockHitResult) {
+    protected void onHitBlock(@NotNull BlockHitResult blockHitResult) {
         super.onHitBlock(blockHitResult);
         this.explode(blockHitResult.getBlockPos(), false);
     }

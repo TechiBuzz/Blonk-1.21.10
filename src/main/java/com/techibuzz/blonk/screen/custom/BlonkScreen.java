@@ -6,21 +6,22 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.CyclingSlotBackground;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class BlonkScreen extends AbstractContainerScreen<BlonkMenu> {
-    private static final ResourceLocation BLONK_GUI_TEXTURE = ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, "textures/gui/container/blonk.png");
+public class BlonkScreen extends AbstractContainerScreen<@NotNull BlonkMenu> {
+    private static final Identifier BLONK_GUI_TEXTURE = Identifier.fromNamespaceAndPath(Blonk.MOD_ID, "textures/gui/container/blonk.png");
 
-    private static final ResourceLocation SHELL_SPRITE = ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, "container/slot/shell");
-    private static final ResourceLocation DRAGON_SHELL_SPRITE = ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, "container/slot/dragon_shell");
-    private static final ResourceLocation HE_SHELL_SPRITE = ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, "container/slot/he_shell");
-    private static final ResourceLocation HEAT_SHELL_SPRITE = ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, "container/slot/heat_shell");
-    private static final ResourceLocation NUCLEAR_SHELL_SPRITE = ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, "container/slot/nuclear_shell");
-    private static final ResourceLocation SMOKE_SHELL_SPRITE = ResourceLocation.fromNamespaceAndPath(Blonk.MOD_ID, "container/slot/smoke_shell");
-    private static final List<ResourceLocation> EMPTY_SLOT_SHELLS = List.of(
+    private static final Identifier SHELL_SPRITE = Identifier.fromNamespaceAndPath(Blonk.MOD_ID, "container/slot/shell");
+    private static final Identifier DRAGON_SHELL_SPRITE = Identifier.fromNamespaceAndPath(Blonk.MOD_ID, "container/slot/dragon_shell");
+    private static final Identifier HE_SHELL_SPRITE = Identifier.fromNamespaceAndPath(Blonk.MOD_ID, "container/slot/he_shell");
+    private static final Identifier HEAT_SHELL_SPRITE = Identifier.fromNamespaceAndPath(Blonk.MOD_ID, "container/slot/heat_shell");
+    private static final Identifier NUCLEAR_SHELL_SPRITE = Identifier.fromNamespaceAndPath(Blonk.MOD_ID, "container/slot/nuclear_shell");
+    private static final Identifier SMOKE_SHELL_SPRITE = Identifier.fromNamespaceAndPath(Blonk.MOD_ID, "container/slot/smoke_shell");
+    private static final List<Identifier> EMPTY_SLOT_SHELLS = List.of(
             SHELL_SPRITE, DRAGON_SHELL_SPRITE, HE_SHELL_SPRITE, HEAT_SHELL_SPRITE, NUCLEAR_SHELL_SPRITE, SMOKE_SHELL_SPRITE
     );
 
@@ -37,7 +38,7 @@ public class BlonkScreen extends AbstractContainerScreen<BlonkMenu> {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         this.renderTooltip(guiGraphics, mouseX, mouseY);
     }
